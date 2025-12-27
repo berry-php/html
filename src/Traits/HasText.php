@@ -13,11 +13,17 @@ trait HasText
             return $this;
         }
 
-        $value = is_callable($text)
-            ? new TextNode((string) $text(), $raw)
-            : new TextNode((string) $text, $raw);
+        if (is_callable($text)) {
+            $text = $text();
 
-        $this->children[] = $value;
+            if ($text === null) {
+                return $this;
+            }
+
+            assert(is_string($text));
+        }
+
+        $this->children[] = new TextNode((string) $text, $raw);
 
         return $this;
     }

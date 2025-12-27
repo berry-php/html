@@ -18,9 +18,17 @@ trait HasChildren
             return $this;
         }
 
-        $this->children[] = is_callable($child)
-            ? $child()
-            : $child;
+        if (is_callable($child)) {
+            $child = $child();
+
+            if ($child === null) {
+                return $this;
+            }
+
+            assert($child instanceof Node);
+        }
+
+        $this->children[] = $child;
 
         return $this;
     }
