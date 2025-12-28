@@ -1,9 +1,13 @@
 <?php
 
+use Berry\Html5\Elements\Button;
+use Berry\Html5\BaseNode;
+use Berry\Node;
 use Berry\Renderable;
 
 use function Berry\Html5\b;
 use function Berry\Html5\body;
+use function Berry\Html5\button;
 use function Berry\Html5\div;
 use function Berry\Html5\footer;
 use function Berry\Html5\h1;
@@ -102,4 +106,45 @@ class IndexView
 
 test('README.md example', function () {
     expect(IndexView::render()->toString())->toBe('<!DOCTYPE html><html lang="en"><head><title>Index Page</title></head><body><div class="container"><h1>Index Page</h1></div><footer>This is a footer</footer></body></html>');
+});
+
+test('Extension Methods', function () {
+    Node::addMethod('hxPost', function (Node $node, mixed ...$args): Node {
+        assert(count($args) === 1);
+        $url = $args[0];
+        assert(is_string($url));
+
+        return $node->attr('hx-post', $url);
+    });
+
+    // @phpstan-ignore-next-line
+    expect(button()->hxPost('https://example.com')->toString())->toBe('<button hx-post="https://example.com"></button>');
+
+    Button::addMethod('greeter', function (Button $btn, mixed ...$args): Button {
+        assert(count($args) === 1);
+        $name = $args[0];
+        assert(is_string($name));
+        return $btn->attr('greet', $name);
+    });
+
+    // @phpstan-ignore-next-line
+    expect(button()->greeter('Peter')->toString())->toBe('<button greet="Peter"></button>');
+
+    // cuz this is only for button and children
+    // @phpstan-ignore-next-line
+    expect(fn() => div()->greeter('Peter')->toString())->toThrow(BadMethodCallException::class);
+
+    BaseNode::addMethod('hxSwap', function (BaseNode $node, mixed ...$args): BaseNode {
+        assert(count($args) === 1);
+        $first = $args[0];
+        assert(is_string($first));
+
+        return $node->attr('hx-swap', $first);
+    });
+
+    // @phpstan-ignore-next-line
+    expect(button()->hxSwap('outerHTML')->toString())->toBe('<button hx-swap="outerHTML"></button>');
+
+    // @phpstan-ignore-next-line
+    expect(fn() => html()->hxSwap('outerHTML')->toString())->toThrow(BadMethodCallException::class);
 });

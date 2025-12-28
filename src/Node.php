@@ -3,10 +3,12 @@
 namespace Berry;
 
 use Berry\Traits\HasAttributes;
+use Berry\Traits\HasExtensionMethods;
 
 abstract class Node implements Renderable
 {
     use HasAttributes;
+    use HasExtensionMethods;
 
     /**
      * @var array<string, string>
