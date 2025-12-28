@@ -49,6 +49,13 @@ class IndexView
 
 ```
 
+## Ecosystem
+
+Some other related packages:
+
+- [berry/symfony](https://github.com/atomicptr/berry-symfony) - Symfony integration
+- [berry/htmx](https://github.com/atomicptr/berry-symfony) - HTMX integration
+
 ## License
 
 MIT
