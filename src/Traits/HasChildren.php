@@ -6,7 +6,7 @@ use Berry\Renderable;
 
 trait HasChildren
 {
-    /** @var Renderable[] */
+    /** @var array<Renderable|null> */
     protected array $children = [];
 
     /**

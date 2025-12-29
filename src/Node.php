@@ -21,7 +21,7 @@ abstract class Node implements Renderable
     protected array $flags = [];
 
     /**
-     * @var Renderable[]
+     * @var array<Renderable|null>
      */
     protected array $children = [];
 
@@ -83,6 +83,10 @@ abstract class Node implements Renderable
         $buffer[] = '>';
 
         foreach ($this->children as $child) {
+            if ($child === null) {
+                continue;
+            }
+
             $child->renderInto($buffer);
         }
 
@@ -101,7 +105,10 @@ abstract class Node implements Renderable
         return [
             static::class,
             array_merge($this->attributes, $this->flags),
-            array_map(fn(Renderable $child) => $child->toArray(), $this->children),
+            array_map(
+                fn(Renderable $child) => $child->toArray(),
+                array_filter($this->children, fn(Renderable|null $child) => $child !== null)
+            ),
         ];
     }
 }

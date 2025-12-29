@@ -1,8 +1,13 @@
 # Berry
 
-No dependency, fast PHP eDSL for writing HTML
+Berry is a zero-dependency, type-safe toolkit for building HTML structures using pure PHP.
 
-Define HTML templates using PHP without losing access to tools like phpstan and xdebug
+## Features
+
+- **Pure PHP eDSL**: Define HTML structures using a fluent API, no new template syntax to learn just pure PHP
+- **Type Safety**: Designed with PHPStan in mind, benefit from static analysis to catch bugs before they hit production
+- **Built-in inspector**: Berry includes a visual debugging tool that renders a tree of your components and stack traces directly in the browser
+- **Extensible**: Extend Berry with custom attributes using the integrated extension method functionality
 
 ## Usage
 

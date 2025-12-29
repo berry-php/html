@@ -1,6 +1,6 @@
 {
     "name": "berry/html",
-    "description": "No dependency, fast PHP eDSL for writing HTML",
+    "description": "Berry is a zero-dependency, type-safe toolkit for building HTML structures using pure PHP.",
     "type": "library",
     "license": "MIT",
     "autoload": {
@@ -12,8 +12,7 @@
         ]
     },
     "scripts": {
-        "gen-functions": "php bin/gen-functions",
-        "test": "XDEBUG_MODE=coverage php vendor/bin/pest --coverage"
+        "gen-functions": "php bin/gen-functions"
     },
     "authors": [
         {

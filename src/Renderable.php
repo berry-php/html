@@ -2,6 +2,17 @@
 
 namespace Berry;
 
+/**
+ * @phpstan-type RenderableArrayRepr array{
+ *      0: class-string,
+ *      1: array<string, string|int|float|bool>,
+ *      2: array<array{
+ *          0: string,
+ *          1: array<string, string|int|float|bool>,
+ *          2: array<mixed>
+ *      }>
+ * }
+ */
 interface Renderable
 {
     /**
@@ -22,15 +33,7 @@ interface Renderable
      * - List of attributes
      * - List of children
      *
-     * @return array{
-     *      0: class-string<static>,
-     *      1: array<string, string|int|float|bool>,
-     *      2: array<array{
-     *          0: string,
-     *          1: array<string, string|int|float|bool>,
-     *          2: array<mixed>
-     *      }>
-     * }
+     * @return RenderableArrayRepr
      */
     public function toArray(): array;
 }
