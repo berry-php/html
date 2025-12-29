@@ -95,4 +95,13 @@ abstract class Node implements Renderable
         $this->renderInto($parts);
         return implode('', $parts);
     }
+
+    public function toArray(): array
+    {
+        return [
+            static::class,
+            array_merge($this->attributes, $this->flags),
+            array_map(fn(Renderable $child) => $child->toArray(), $this->children),
+        ];
+    }
 }

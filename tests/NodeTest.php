@@ -4,6 +4,7 @@ use Berry\Html5\Elements\Button;
 use Berry\Html5\BaseNode;
 use Berry\Node;
 use Berry\Renderable;
+use Berry\TextNode;
 
 use function Berry\Html5\b;
 use function Berry\Html5\body;
@@ -147,4 +148,26 @@ test('Extension Methods', function () {
 
     // @phpstan-ignore-next-line
     expect(fn() => html()->hxSwap('outerHTML')->toString())->toThrow(BadMethodCallException::class);
+});
+
+test('Array representation of elements', function () {
+    expect(
+        button()
+            ->id('the-button')
+            ->class('btn btn-primary')
+            ->text('Hello, World')
+            ->toArray()
+    )->toBe([
+        Button::class, [
+            'id' => 'the-button',
+            'class' => 'btn btn-primary'
+        ],
+        [
+            [
+                TextNode::class,
+                ['content' => 'Hello, World', 'raw' => false],
+                []
+            ],
+        ]
+    ]);
 });

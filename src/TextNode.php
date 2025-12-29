@@ -32,4 +32,13 @@ final class TextNode extends Node
 
         $buffer[] = htmlspecialchars($this->text);
     }
+
+    public function toArray(): array
+    {
+        return [
+            static::class,
+            ['content' => $this->text, 'raw' => $this->raw],
+            []
+        ];
+    }
 }
