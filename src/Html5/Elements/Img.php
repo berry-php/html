@@ -20,4 +20,9 @@ class Img extends BaseNode
     {
         return true;
     }
+
+    public function alt(string $alt): static
+    {
+        return $this->attr('alt', $alt);
+    }
 }
