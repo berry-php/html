@@ -8,6 +8,7 @@
             "Berry\\": "src/"
         },
         "files": [
+            "src/functions.php",
             "src/Html5/functions.php"
         ]
     },

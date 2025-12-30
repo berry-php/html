@@ -12,12 +12,15 @@ use function Berry\Html5\button;
 use function Berry\Html5\div;
 use function Berry\Html5\footer;
 use function Berry\Html5\h1;
+use function Berry\Html5\h2;
+use function Berry\Html5\h3;
 use function Berry\Html5\head;
 use function Berry\Html5\html;
 use function Berry\Html5\img;
 use function Berry\Html5\li;
 use function Berry\Html5\title;
 use function Berry\Html5\ul;
+use function Berry\fragment;
 
 test('Node render simple div example', function () {
     $res = div()
@@ -170,4 +173,14 @@ test('Array representation of elements', function () {
             ],
         ]
     ]);
+});
+
+test('fragment nodes', function () {
+    $res = fragment(
+        h1()->text('#1'),
+        h2()->text('#2'),
+        h3()->text('#3'),
+    )->toString();
+
+    expect($res)->toBe('<h1>#1</h1><h2>#2</h2><h3>#3</h3>');
 });
