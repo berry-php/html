@@ -22,7 +22,7 @@ class CounterButton extends Component
 
 test('test simple component', function () {
     expect(
-        new CounterButton(42)->toString()
+        (new CounterButton(42))->toString()
     )->toBe(
         '<button class="btn btn-primary" hx-post="/counter/43">+42</button>'
     );

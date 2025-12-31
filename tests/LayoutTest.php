@@ -38,7 +38,7 @@ class RootLayout extends Layout
 test('test layout', function () {
     $content = p()->text('Hello Content!');
 
-    $page = new RootLayout('Root!')
+    $page = (new RootLayout('Root!'))
         ->slot('content', $content);
 
     expect($page->toString())->toBe('<!DOCTYPE html><html><head><title>Root!</title></head><body><h1>Hello from Root Layout!</h1><p>Hello Content!</p></body></html>');
@@ -52,7 +52,7 @@ class AppLayout extends Layout
 
     public function renderTree(): Element
     {
-        return new RootLayout($this->title)->slot(
+        return (new RootLayout($this->title))->slot(
             'content',
             main()
                 ->child(h2()->text('Hello from App Layout!'))
@@ -64,7 +64,7 @@ class AppLayout extends Layout
 test('test layout in layout', function () {
     $content = p()->text('Hello Content!');
 
-    $page = new AppLayout('App!')
+    $page = (new AppLayout('App!'))
         ->slot('content', $content);
 
     expect($page->toString())->toBe('<!DOCTYPE html><html><head><title>App!</title></head><body><h1>Hello from Root Layout!</h1><main><h2>Hello from App Layout!</h2><p>Hello Content!</p></main></body></html>');
