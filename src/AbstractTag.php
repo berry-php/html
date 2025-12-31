@@ -18,4 +18,29 @@ abstract class AbstractTag implements Element, HasAttributesContract, HasExtensi
     public function __construct(
         protected string $tagName
     ) {}
+
+    /**
+     * @param callable(static): static $fn
+     */
+    public function map(callable $fn): static
+    {
+        return $fn($this);
+    }
+
+    /**
+     * @param (callable(): bool)|bool $condition
+     * @param callable(static): static $fn
+     */
+    public function mapWhen(callable|bool $condition, callable $fn): static
+    {
+        if (is_callable($condition)) {
+            return $this->mapWhen($condition(), $fn);
+        }
+
+        if ($condition) {
+            return $fn($this);
+        }
+
+        return $this;
+    }
 }
