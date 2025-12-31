@@ -22,7 +22,7 @@ $ composer req berry/html
 
 // renders a counter button and a debug representation of itself
 // clicking on the button will send a POST request to the current script
-function counterButton(int $value): Renderable
+function counterButton(int $value): Element
 {
     $nextValue = $value + 1;
 
@@ -44,7 +44,7 @@ function counterButton(int $value): Renderable
 
 // our website layout to wrap around the content
 // includes picocss and htmx
-function layout(Renderable $content): Renderable
+function layout(Element $content): Element
 {
     return html()
         ->child(head()
