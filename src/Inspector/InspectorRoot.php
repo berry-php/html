@@ -15,7 +15,7 @@ final class InspectorRoot extends Component implements HideFromInspector
         private Element $root
     ) {}
 
-    public function renderTree(): Element
+    public function renderComponent(): Element
     {
         return $this->root;
     }

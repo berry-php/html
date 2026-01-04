@@ -11,7 +11,7 @@ class CounterButton extends Component
         private int $value
     ) {}
 
-    public function renderTree(): Element
+    public function renderComponent(): Element
     {
         return button()
             ->class('btn btn-primary')

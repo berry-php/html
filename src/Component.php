@@ -10,10 +10,10 @@ abstract class Component implements Element, IsRenderableContract
 {
     use Renderable;
 
-    abstract public function renderTree(): Element;
+    abstract public function renderComponent(): Element;
 
     public function render(Renderer $renderer): void
     {
-        $this->renderTree()->render($renderer);
+        $this->renderComponent()->render($renderer);
     }
 }

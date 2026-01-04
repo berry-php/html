@@ -18,7 +18,7 @@ class RootLayout extends Layout
         private string $title
     ) {}
 
-    public function renderTree(): Element
+    public function renderComponent(): Element
     {
         return html()
             ->child(
@@ -50,7 +50,7 @@ class AppLayout extends Layout
         private string $title
     ) {}
 
-    public function renderTree(): Element
+    public function renderComponent(): Element
     {
         return (new RootLayout($this->title))->slot(
             'content',
