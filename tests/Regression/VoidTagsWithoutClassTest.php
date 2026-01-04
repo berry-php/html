@@ -46,7 +46,7 @@ class Emailfield extends Textfield
 }
 
 test('regression test: class / value empty', function () {
-    expect(new Emailfield('E-Mail', 'email')->toString())->toBe('<label class="floating-label"><span>E-Mail</span><input name="email" class="input w-full" type="email" /></label>');
-    expect(new Emailfield('E-Mail', 'email', 'test@example.com')->toString())->toBe('<label class="floating-label"><span>E-Mail</span><input name="email" class="input w-full" value="test@example.com" type="email" /></label>');
-    expect(new Emailfield('E-Mail', 'email', 'test@', 'Invalid')->toString())->toBe('<label class="floating-label"><span>E-Mail</span><input name="email" class="input w-full input-error" value="test@" type="email" /><p class="text-error text-xs">Invalid</p></label>');
+    expect((new Emailfield('E-Mail', 'email'))->toString())->toBe('<label class="floating-label"><span>E-Mail</span><input name="email" class="input w-full" type="email" /></label>');
+    expect((new Emailfield('E-Mail', 'email', 'test@example.com'))->toString())->toBe('<label class="floating-label"><span>E-Mail</span><input name="email" class="input w-full" value="test@example.com" type="email" /></label>');
+    expect((new Emailfield('E-Mail', 'email', 'test@', 'Invalid'))->toString())->toBe('<label class="floating-label"><span>E-Mail</span><input name="email" class="input w-full input-error" value="test@" type="email" /><p class="text-error text-xs">Invalid</p></label>');
 });
