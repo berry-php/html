@@ -21,7 +21,7 @@ test('map conditionally', function () {
 
     $mkLink = fn(bool $active) => a()
         ->href('https://example.com')
-        ->mapWhen($active, fn(A $a): A => $a->class('active'))
+        ->mapWhen(fn() => $active, fn(A $a): A => $a->class('active'))
         ->text('Link')
         ->toString();
 
