@@ -13,5 +13,5 @@ test('test resource renderer', function () {
 
     $elem2 = div()->text("I'm different");
 
-    expect($elem2->toString($renderer))->toBe("<div>I'm different</div>");
+    expect($elem2->toString($renderer))->toBe('<div id="to-be-rendered">Hello, World!</div><div>I&#039;m different</div>');
 });

@@ -6,6 +6,7 @@ use LogicException;
 
 final class Escaper
 {
+    /** @codeCoverageIgnore */
     private function __construct() {}
 
     public static function escape(string $content): string

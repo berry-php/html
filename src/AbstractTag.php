@@ -8,6 +8,7 @@ use Berry\Contract\IsRenderableContract;
 use Berry\Traits\HasAttributes;
 use Berry\Traits\HasExtensionMethods;
 use Berry\Traits\Renderable;
+use Closure;
 
 abstract class AbstractTag implements Element, HasAttributesContract, HasExtensionMethodsContract, IsRenderableContract
 {
@@ -20,20 +21,20 @@ abstract class AbstractTag implements Element, HasAttributesContract, HasExtensi
     ) {}
 
     /**
-     * @param callable(static): static $fn
+     * @param Closure(static): static $fn
      */
-    public function map(callable $fn): static
+    public function map(Closure $fn): static
     {
         return $fn($this);
     }
 
     /**
-     * @param (callable(): bool)|bool $condition
-     * @param callable(static): static $fn
+     * @param (Closure(): bool)|bool $condition
+     * @param Closure(static): static $fn
      */
-    public function mapWhen(callable|bool $condition, callable $fn): static
+    public function mapWhen(Closure|bool $condition, Closure $fn): static
     {
-        if (is_callable($condition)) {
+        if ($condition instanceof Closure) {
             return $this->mapWhen($condition(), $fn);
         }
 
