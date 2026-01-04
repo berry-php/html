@@ -12,6 +12,7 @@ use Stringable;
 trait HasGlobalAttributes
 {
     use HasAttributes;
+    use HasClassAttribute;
 
     /**
      * Unique identifier for the element, must be unique in the document.
@@ -19,14 +20,6 @@ trait HasGlobalAttributes
     public function id(string $id): static
     {
         return $this->attr('id', $id);
-    }
-
-    /**
-     * Space-separated list of CSS classes.
-     */
-    public function class(string $class): static
-    {
-        return $this->attr('class', $class);
     }
 
     /**
@@ -118,5 +111,14 @@ trait HasGlobalAttributes
     public function data(string $key, Stringable|string|int|float|bool $value): static
     {
         return $this->attr("data-{$key}", $value);
+    }
+
+    public function getAttributes(): array
+    {
+        if (count($this->classes) === 0) {
+            return $this->attributes;
+        }
+
+        return array_merge($this->attributes, ['class' => $this->classString()]);
     }
 }

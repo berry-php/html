@@ -16,7 +16,7 @@ class Tag extends AbstractTag implements HasChildrenContract
         // 1. Open Tag
         $renderer->write("<{$this->tagName}");
 
-        foreach ($this->attributes as $key => $value) {
+        foreach ($this->getAttributes() as $key => $value) {
             $key = Escaper::escapeAttributeName(strval($key));
 
             // if the string was escaped away, skip it
