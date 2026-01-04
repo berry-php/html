@@ -30,3 +30,7 @@ test('test removing classes', function () {
 test('removes duplicate classes', function () {
     expect(div()->class('a')->class('b')->class('a')->class('a')->toString())->toBe('<div class="a b"></div>');
 });
+
+test('test getClasses()', function () {
+    expect(div()->class('a')->class('b c')->class(['d', 'e', 'e', 'f'])->getClasses())->toBe(['a', 'b', 'c', 'd', 'e', 'f']);
+});

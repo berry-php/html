@@ -13,6 +13,7 @@ trait HasGlobalAttributes
 {
     use HasAttributes;
     use HasClassAttribute;
+    use HasStyleAttribute;
 
     /**
      * Unique identifier for the element, must be unique in the document.
@@ -115,10 +116,16 @@ trait HasGlobalAttributes
 
     public function getAttributes(): array
     {
-        if (count($this->classes) === 0) {
-            return $this->attributes;
+        $attributes = $this->attributes;
+
+        if (count($this->classes) > 0) {
+            $attributes['class'] = $this->classString();
         }
 
-        return array_merge($this->attributes, ['class' => $this->classString()]);
+        if (count($this->styles) > 0) {
+            $attributes['style'] = $this->styleString();
+        }
+
+        return $attributes;
     }
 }

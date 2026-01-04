@@ -31,7 +31,7 @@ trait HasClassAttribute
         $this->attr('class', '');
 
         array_push($this->classes, ...$class);
-        $this->classes = array_unique(array_map(fn(string $class) => trim($class), $this->classes));
+        $this->classes = array_values(array_unique(array_map(fn(string $class) => trim($class), $this->classes)));
 
         return $this;
     }
@@ -76,5 +76,13 @@ trait HasClassAttribute
     protected function classString(): string
     {
         return implode(' ', $this->classes);
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getClasses(): array
+    {
+        return $this->classes;
     }
 }
