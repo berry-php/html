@@ -19,7 +19,6 @@ use function Berry\Html5\main;
 use function Berry\Html5\p;
 use function Berry\Html5\script;
 use function Berry\Html5\title;
-use function Berry\unsafeRawText;
 
 // renders a counter button and a debug representation of itself
 // clicking on the button will send a POST request to the current script

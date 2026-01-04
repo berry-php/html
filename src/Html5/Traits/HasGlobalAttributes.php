@@ -14,6 +14,7 @@ trait HasGlobalAttributes
     use HasAttributes;
     use HasClassAttribute;
     use HasStyleAttribute;
+    use HasAriaAttributes;
 
     /**
      * Unique identifier for the element, must be unique in the document.

@@ -15,8 +15,6 @@ test('test if inspector can render', function () {
 test('test if InspectorProps are generated correctly', function () {
     $res = div()->child(text('Hello Safe'))->child(unsafeRawText('Hello Unsafe'))->dump(true)->toString();
 
-    echo $res;
-
     expect($res)->toContain('Berry\Text');
     expect($res)->toContain('<div class="berry-debug-leaf"><span class="berry-debug-key">content:</span><span class="berry-debug-string">&quot;Hello Safe&quot;</span></div>');
     expect($res)->toContain('Berry\UnsafeRawText');
