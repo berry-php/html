@@ -49,7 +49,7 @@ test('it handles non-string keys safely', function () {
 });
 
 test('it handles extremely malformed keys that might return null/array from regex', function () {
-    $html = div()->attr('!!!@@@###', 'symbols')->toString();
+    $html = div()->attr('!!!###', 'symbols')->toString();
 
     // Should result in an empty string and be skipped
     expect($html)->toBe('<div></div>');

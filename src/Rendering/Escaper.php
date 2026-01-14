@@ -19,7 +19,7 @@ final class Escaper
     {
         $escaped = str_replace("\0", '', $content);
         $escaped = strtolower($escaped);  // attributes must be lower case
-        $escaped = preg_replace('/[^a-z0-9\-_:]/', '', $escaped);
+        $escaped = preg_replace('/[^a-z0-9\-_:@.]/', '', $escaped);
 
         if ($escaped === null) {
             throw new LogicException("Could not escape attribute: $content");
