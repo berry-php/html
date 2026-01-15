@@ -24,6 +24,7 @@ trait HasChildren
         }
 
         // if has text buffered flush it first
+        // @phpstan-ignore-next-line We can't guarantee that the function is available but if it is we need to call it
         if ($this instanceof HasTextContract && method_exists($this, 'flushTextBufferIfPresent')) {
             $this->flushTextBufferIfPresent();
         }
@@ -57,6 +58,7 @@ trait HasChildren
             return $this->child($else);
         }
 
+        // @phpstan-ignore-next-line We can't guarantee that the function is available but if it is we need to call it
         if ($this instanceof HasTextContract && method_exists($this, 'flushTextBufferIfPresent')) {
             $this->flushTextBufferIfPresent();
         }
