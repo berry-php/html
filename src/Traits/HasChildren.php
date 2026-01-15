@@ -4,6 +4,8 @@ namespace Berry\Traits;
 
 use Berry\Contract\HasTextContract;
 use Berry\Element;
+use Berry\Str;
+use Berry\Tag;
 use Closure;
 
 trait HasChildren
@@ -23,13 +25,18 @@ trait HasChildren
             return $this;
         }
 
-        // if has text buffered flush it first
-        // @phpstan-ignore-next-line We can't guarantee that the function is available but if it is we need to call it
-        if ($this instanceof HasTextContract && method_exists($this, 'flushTextBufferIfPresent')) {
-            $this->flushTextBufferIfPresent();
+        // Collapse simple leaf tags fast
+        if ($child instanceof Tag) {
+            $child = $child->collapseTag();
         }
 
         $this->children ??= [];
+
+        // if has text buffered flush it first
+        if ($this instanceof HasTextContract && $this->hasTextBuffer()) {
+            $this->children[] = new Str($this->stealTextBuffer());
+        }
+
         $this->children[] = $child;
 
         return $this;
@@ -58,13 +65,19 @@ trait HasChildren
             return $this->child($else);
         }
 
-        // @phpstan-ignore-next-line We can't guarantee that the function is available but if it is we need to call it
-        if ($this instanceof HasTextContract && method_exists($this, 'flushTextBufferIfPresent')) {
-            $this->flushTextBufferIfPresent();
+        $this->children ??= [];
+
+        // if has text buffered flush it first
+        if ($this instanceof HasTextContract && $this->hasTextBuffer()) {
+            $this->children[] = new Str($this->stealTextBuffer());
         }
 
-        $this->children ??= [];
-        array_push($this->children, ...$children);
+        foreach ($children as $c) {
+            if ($c instanceof Tag) {
+                $c = $c->collapseTag();
+            }
+            $this->children[] = $c;
+        }
 
         return $this;
     }

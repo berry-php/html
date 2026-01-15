@@ -12,6 +12,24 @@ class Tag extends AbstractTag implements HasChildrenContract
 {
     use HasChildren;
 
+    /**
+     * @internal Collapse Tag into a String if possible
+     */
+    public function collapseTag(): Element
+    {
+        // has attributes or children, cant collapse
+        if (!empty($this->attributes) || !empty($this->children)) {
+            return $this;
+        }
+
+        if ($this instanceof HasTextContract && $this->hasTextBuffer()) {
+            $content = $this->stealTextBuffer();
+            return new CollapsedTag($this->tagName(), $content);
+        }
+
+        return $this;
+    }
+
     public function render(Renderer $renderer): void
     {
         $renderer->write("<{$this->tagName()}");
@@ -36,13 +54,14 @@ class Tag extends AbstractTag implements HasChildrenContract
 
         $renderer->write('>');
 
-        foreach ($this->children ?? [] as $child) {
-            $child?->render($renderer);
+        if (!empty($this->children)) {
+            foreach ($this->children as $child) {
+                $child?->render($renderer);
+            }
         }
 
-        if ($this instanceof HasTextContract && method_exists($this, 'writeBufferedText')) {
-            // Write buffered text if no children
-            $this->writeBufferedText($renderer);
+        if ($this instanceof HasTextContract && $this->hasTextBuffer()) {
+            $renderer->write($this->stealTextBuffer());
         }
 
         $renderer->write("</{$this->tagName()}>");

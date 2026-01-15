@@ -36,6 +36,20 @@ trait HasText
         }
     }
 
+    /** Internal: true if there is buffered text */
+    public function hasTextBuffer(): bool
+    {
+        return $this->textBuffer !== null && $this->textBuffer !== '';
+    }
+
+    /** Internal: returns buffered text and clears the buffer */
+    public function stealTextBuffer(): string
+    {
+        $buf = $this->textBuffer ?? '';
+        $this->textBuffer = null;
+        return $buf;
+    }
+
     /**
      * Adds a text node to the element (escaped immediately)
      *

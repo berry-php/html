@@ -20,4 +20,14 @@ interface HasTextContract
      * @param Stringable|string|int|float|bool|(Closure(): string|null)|null $text
      */
     public function unsafeRaw(Stringable|string|int|float|bool|Closure|null $text): static;
+
+    /**
+     * @internal If there is buffered text waiting to be flushed
+     */
+    public function hasTextBuffer(): bool;
+
+    /**
+     * @internal Returns buffered text and clears the buffer
+     */
+    public function stealTextBuffer(): string;
 }

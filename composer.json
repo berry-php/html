@@ -20,6 +20,7 @@
     "scripts": {
         "gen-functions": "php bin/gen-functions",
         "test": "php vendor/bin/pest",
+        "coverage": "XDEBUG_MODE=coverage php vendor/bin/pest --coverage",
         "bench": "php vendor/bin/phpbench run tests/Benchmark --report=aggregate"
     },
     "authors": [
