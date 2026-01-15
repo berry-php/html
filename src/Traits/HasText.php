@@ -2,18 +2,42 @@
 
 namespace Berry\Traits;
 
-use Berry\Text;
-use Berry\UnsafeRawText;
+use Berry\Rendering\Escaper;
+use Berry\Rendering\Renderer;
+use Berry\Str;
 use Closure;
 use Stringable;
 
 trait HasText
 {
-    /** @var array<Element|null>|null */
-    protected ?array $children = null;
+    /**
+     * Pre-rendered text buffer. Already escaped for text(), raw for unsafeRaw().
+     */
+    protected ?string $textBuffer = null;
 
     /**
-     * Adds a text node to the element
+     * Flush buffered text into a child node
+     */
+    protected function flushTextBufferIfPresent(): void
+    {
+        if ($this->textBuffer !== null && $this->textBuffer !== '') {
+            $this->children[] = new Str($this->textBuffer);
+            $this->textBuffer = null;
+        }
+    }
+
+    /**
+     * Write buffered text (if any) directly to renderer.
+     */
+    protected function writeBufferedText(Renderer $renderer): void
+    {
+        if ($this->textBuffer !== null && $this->textBuffer !== '') {
+            $renderer->write($this->textBuffer);
+        }
+    }
+
+    /**
+     * Adds a text node to the element (escaped immediately)
      *
      * @param Stringable|string|int|float|bool|(Closure(): (string|int|float|bool|null))|null $text
      */
@@ -27,14 +51,12 @@ trait HasText
             return $this;
         }
 
-        $this->children ??= [];
-        $this->children[] = new Text((string) $text);
-
+        $this->textBuffer = ($this->textBuffer ?? '') . Escaper::escape((string) $text);
         return $this;
     }
 
     /**
-     * Adds a raw text node to the element
+     * Adds a raw text node to the element (unescaped)
      *
      * @param Stringable|string|int|float|bool|(Closure(): (string|int|float|bool|null))|null $text
      */
@@ -48,9 +70,7 @@ trait HasText
             return $this;
         }
 
-        $this->children ??= [];
-        $this->children[] = new UnsafeRawText((string) $text);
-
+        $this->textBuffer = ($this->textBuffer ?? '') . (string) $text;
         return $this;
     }
 }

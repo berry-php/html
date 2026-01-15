@@ -5,7 +5,7 @@ namespace Berry;
 use Berry\Contract\HasInspectorPropsContract;
 use Berry\Rendering\Renderer;
 
-final class UnsafeRawText implements Element, HasInspectorPropsContract
+final class Str implements Element, HasInspectorPropsContract
 {
     public function __construct(
         private string $content

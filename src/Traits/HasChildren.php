@@ -2,6 +2,7 @@
 
 namespace Berry\Traits;
 
+use Berry\Contract\HasTextContract;
 use Berry\Element;
 use Closure;
 
@@ -20,6 +21,11 @@ trait HasChildren
 
         if ($child === null) {
             return $this;
+        }
+
+        // if has text buffered flush it first
+        if ($this instanceof HasTextContract && method_exists($this, 'flushTextBufferIfPresent')) {
+            $this->flushTextBufferIfPresent();
         }
 
         $this->children ??= [];
@@ -51,9 +57,12 @@ trait HasChildren
             return $this->child($else);
         }
 
-        foreach ($children as $child) {
-            $this->child($child);
+        if ($this instanceof HasTextContract && method_exists($this, 'flushTextBufferIfPresent')) {
+            $this->flushTextBufferIfPresent();
         }
+
+        $this->children ??= [];
+        array_push($this->children, ...$children);
 
         return $this;
     }

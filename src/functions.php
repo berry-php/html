@@ -2,20 +2,22 @@
 
 namespace Berry;
 
+use Berry\Rendering\Escaper;
+
 /**
  * Render a text node
  */
-function text(string $text): Text
+function text(string $text): Element
 {
-    return new Text($text);
+    return new Str(Escaper::escape($text));
 }
 
 /**
  * Render a text node without escaping
  */
-function unsafeRawText(string $raw): UnsafeRawText
+function unsafeRawText(string $raw): Element
 {
-    return new UnsafeRawText($raw);
+    return new Str($raw);
 }
 
 /**

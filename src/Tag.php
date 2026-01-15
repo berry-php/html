@@ -3,6 +3,7 @@
 namespace Berry;
 
 use Berry\Contract\HasChildrenContract;
+use Berry\Contract\HasTextContract;
 use Berry\Rendering\Escaper;
 use Berry\Rendering\Renderer;
 use Berry\Traits\HasChildren;
@@ -37,6 +38,11 @@ class Tag extends AbstractTag implements HasChildrenContract
 
         foreach ($this->children ?? [] as $child) {
             $child?->render($renderer);
+        }
+
+        if ($this instanceof HasTextContract && method_exists($this, 'writeBufferedText')) {
+            // Write buffered text if no children
+            $this->writeBufferedText($renderer);
         }
 
         $renderer->write("</{$this->tagName()}>");
