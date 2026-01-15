@@ -2,7 +2,6 @@
 
 namespace Berry\Tests\Benchmark;
 
-use Berry\Rendering\ArrayBufferRenderer;
 use Berry\Rendering\DirectOutputRenderer;
 use Berry\Rendering\Renderer;
 use Berry\Rendering\ResourceRenderer;
@@ -39,7 +38,6 @@ class BigTableBench
      */
     public function provideRenderers(): Generator
     {
-        yield 'array_buffer' => ['renderer_class' => ArrayBufferRenderer::class];
         yield 'string_concat' => ['renderer_class' => StringConcatRenderer::class];
         yield 'resource' => ['renderer_class' => ResourceRenderer::class];
         yield 'direct_output' => ['renderer_class' => DirectOutputRenderer::class];
