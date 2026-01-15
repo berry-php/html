@@ -4,7 +4,9 @@ namespace Berry\Tests\Benchmark;
 
 use Berry\Rendering\ArrayBufferRenderer;
 use Berry\Rendering\DirectOutputRenderer;
+use Berry\Rendering\Renderer;
 use Berry\Rendering\ResourceRenderer;
+use Berry\Rendering\StringConcatRenderer;
 use Berry\Element;
 use Generator;
 
@@ -14,15 +16,16 @@ use function Berry\Html\tr;
 
 /**
  * @BeforeMethods({"setUp"})
- * @ParamProviders({"provideTableSizes"})
+ * @ParamProviders({"provideRenderers", "provideTableSizes"})
  * @Revs(10)
  */
 class BigTableBench
 {
     private Element $table;
+    private Renderer $renderer;
 
     /**
-     * @return Generator<string, array<string, int>> $params
+     * @return Generator<string, array{rows: int, cols: int}> $params
      */
     public function provideTableSizes(): Generator
     {
@@ -32,11 +35,26 @@ class BigTableBench
     }
 
     /**
-     * @param array<string, int> $params
+     * @return Generator<string, array{renderer_class: class-string<Renderer>}>
+     */
+    public function provideRenderers(): Generator
+    {
+        yield 'array_buffer' => ['renderer_class' => ArrayBufferRenderer::class];
+        yield 'string_concat' => ['renderer_class' => StringConcatRenderer::class];
+        yield 'resource' => ['renderer_class' => ResourceRenderer::class];
+        yield 'direct_output' => ['renderer_class' => DirectOutputRenderer::class];
+    }
+
+    /**
+     * @param array{rows: int, cols: int, renderer_class: class-string<Renderer>} $params
      */
     public function setUp(array $params): void
     {
         $this->table = $this->buildTable($params['rows'], $params['cols']);
+        $this->renderer = match ($params['renderer_class']) {
+            ResourceRenderer::class => ResourceRenderer::temp(),
+            default => new $params['renderer_class'],
+        };
     }
 
     private function buildTable(int $rows, int $cols): Element
@@ -57,7 +75,7 @@ class BigTableBench
     }
 
     /**
-     * @param array<string, int> $params
+     * @param array{rows: int, cols: int, renderer_class: class-string<Renderer>} $params
      */
     public function benchBuildingTable(array $params): void
     {
@@ -65,31 +83,34 @@ class BigTableBench
     }
 
     /**
-     * @param array<string, int> $params
+     * @param array{rows: int, cols: int, renderer_class: class-string<Renderer>} $params
      */
-    public function benchArrayBufferRenderer(array $params): void
+    public function benchRendering(array $params): void
     {
-        $renderer = new ArrayBufferRenderer();
-        $this->table->render($renderer);
+        if ($params['renderer_class'] === DirectOutputRenderer::class) {
+            ob_start();
+            $this->table->render($this->renderer);
+            ob_end_clean();
+            return;
+        }
+
+        $this->table->render($this->renderer);
     }
 
     /**
-     * @param array<string, int> $params
+     * @param array{rows: int, cols: int, renderer_class: class-string<Renderer>} $params
      */
-    public function benchResourceRenderer(array $params): void
+    public function benchBuildingTableAndRendering(array $params): void
     {
-        $renderer = ResourceRenderer::temp();
-        $this->table->render($renderer);
-    }
+        $table = $this->buildTable($params['rows'], $params['cols']);
 
-    /**
-     * @param array<string, int> $params
-     */
-    public function benchDirectOutputRenderer(array $params): void
-    {
-        $renderer = new DirectOutputRenderer();
-        ob_start();
-        $this->table->render($renderer);
-        ob_end_clean();
+        if ($params['renderer_class'] === DirectOutputRenderer::class) {
+            ob_start();
+            $table->render($this->renderer);
+            ob_end_clean();
+            return;
+        }
+
+        $table->render($this->renderer);
     }
 }
