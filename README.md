@@ -1,13 +1,6 @@
-# Berry
+# Berry HTML
 
-Berry is a zero-dependency, type-safe toolkit for building HTML structures using pure PHP.
-
-## Features
-
-- **Pure PHP eDSL**: Define HTML structures using a fluent API, no new template syntax to learn just pure PHP
-- **Type Safety**: Designed with PHPStan in mind, benefit from static analysis to catch bugs before they hit production
-- **Built-in inspector**: Berry includes a visual debugging tool that renders a tree of your components and stack traces directly in the browser
-- **Extensible**: Extend Berry with custom attributes using the integrated extension method functionality
+No more context-switching, just build your HTML templates in PHP.
 
 ## Usage
 
@@ -87,8 +80,8 @@ echo layout(
 
 Some other related packages:
 
-- [berry/symfony](https://github.com/atomicptr/berry-symfony) - Symfony integration
-- [berry/htmx](https://github.com/atomicptr/berry-symfony) - HTMX integration
+- [berry/symfony](https://github.com/berry-php/symfony) - Symfony integration
+- [berry/htmx](https://github.com/berry-php/htmx) - HTMX integration
 
 ## License
 
