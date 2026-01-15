@@ -7,6 +7,10 @@ function generate(string $elementsDir, string $namespace, string $namespaceEleme
 {
     $elementsDir = realpath($elementsDir);
 
+    if ($elementsDir === false) {
+        return;
+    }
+
     $files = glob("$elementsDir/*.php");
 
     if ($files === false) {
@@ -47,14 +51,16 @@ function generate(string $elementsDir, string $namespace, string $namespaceEleme
     $res = implode('', $buffer);
 
     if ($outputFile !== null) {
-        $outputFile = realpath($outputFile);
-        assert(is_string($outputFile));
+        $outputFileDir = dirname($outputFile);
+        if (!is_dir($outputFileDir)) {
+            mkdir($outputFileDir, 0755, true);
+        }
 
         file_put_contents($outputFile, $res);
 
         $num = count($funcs);
 
-        echo "Wrote $num functions to $outputFile";
+        echo "Wrote $num functions to $outputFile\n";
         return;
     }
 
@@ -62,8 +68,8 @@ function generate(string $elementsDir, string $namespace, string $namespaceEleme
 }
 
 generate(
-    __DIR__ . '/../src/Html5/Elements',
-    'Berry\Html5',
-    'Berry\Html5\Elements',
-    __DIR__ . '/../src/Html5/functions.php',
+    __DIR__ . '/../src/Html/Elements',
+    'Berry\Html',
+    'Berry\Html\Elements',
+    __DIR__ . '/../src/Html/functions.php',
 );

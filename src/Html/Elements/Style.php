@@ -2,16 +2,25 @@
 
 namespace Berry\Html\Elements;
 
-use Berry\Contract\HasTextContract;
-use Berry\Traits\HasText;
-use Berry\Tag;
+use Berry\Html\HtmlTag;
 
-class Style extends Tag implements HasTextContract
+/**
+ * The HTML <style> element contains style information for a document, or part of a document.
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/style
+ */
+class Style extends HtmlTag
 {
-    use HasText;
-
     public function __construct()
     {
         parent::__construct('style');
+    }
+
+    /**
+     * This attribute defines which media the style should be applied to.
+     * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/style#media
+     */
+    public function media(string $value): static
+    {
+        return $this->attr('media', $value);
     }
 }

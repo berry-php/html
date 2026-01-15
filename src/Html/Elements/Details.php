@@ -4,6 +4,10 @@ namespace Berry\Html\Elements;
 
 use Berry\Html\HtmlTag;
 
+/**
+ * The HTML <details> element creates a disclosure widget in which information is visible only when the widget is toggled into an "open" state.
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details
+ */
 class Details extends HtmlTag
 {
     public function __construct()
@@ -11,6 +15,10 @@ class Details extends HtmlTag
         parent::__construct('details');
     }
 
+    /**
+     * This Boolean attribute indicates whether the details — that is, the contents of the <details> element — are currently visible.
+     * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details#open
+     */
     public function open(bool $open = true): static
     {
         if (!$open) {

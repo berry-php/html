@@ -2,14 +2,14 @@
 
 namespace Berry\Html\Elements;
 
-use Berry\Contract\HasChildrenContract;
-use Berry\Traits\HasChildren;
-use Berry\Tag;
+use Berry\Html\HtmlTag;
 
-class Head extends Tag implements HasChildrenContract
+/**
+ * The HTML <head> element contains machine-readable information (metadata) about the document, like its title, scripts, and style sheets.
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/head
+ */
+class Head extends HtmlTag
 {
-    use HasChildren;
-
     public function __construct()
     {
         parent::__construct('head');

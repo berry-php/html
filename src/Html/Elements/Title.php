@@ -2,14 +2,14 @@
 
 namespace Berry\Html\Elements;
 
-use Berry\Contract\HasTextContract;
-use Berry\Traits\HasText;
-use Berry\Tag;
+use Berry\Html\HtmlTag;
 
-class Title extends Tag implements HasTextContract
+/**
+ * The HTML <title> element defines the document's title that is shown in a browser's title bar or a page's tab.
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title
+ */
+class Title extends HtmlTag
 {
-    use HasText;
-
     public function __construct()
     {
         parent::__construct('title');

@@ -1,5 +1,8 @@
 <?php declare(strict_types=1);
 
+use Berry\Html\Enums\AutoCapitalize;
+use Berry\Html\Enums\Direction;
+use Berry\Html\Enums\InputMode;
 use function Berry\Html\div;
 
 test('Data attributes', function () {
@@ -12,7 +15,7 @@ test('it renders basic string attributes', function () {
         ->accesskey('s')
         ->lang('en')
         ->title('Hello World')
-        ->autocapitalize('words')
+        ->autocapitalize(AutoCapitalize::Words)
         ->toString();
 
     expect($res)->toBe('<div accesskey="s" lang="en" title="Hello World" autocapitalize="words"></div>');
@@ -51,4 +54,30 @@ test('it supports space-separated values in accesskey', function () {
     $res = div()->accesskey('a s d')->toString();
 
     expect($res)->toBe('<div accesskey="a s d"></div>');
+});
+
+test('it renders new global attributes', function () {
+    $res = div()
+        ->dir(Direction::Rtl)
+        ->inputmode(InputMode::Numeric)
+        ->enterkeyhint('next')
+        ->is('custom-div')
+        ->nonce('secret')
+        ->part('thumb')
+        ->slot('header')
+        ->toString();
+
+    expect($res)->toBe('<div dir="rtl" inputmode="numeric" enterkeyhint="next" is="custom-div" nonce="secret" part="thumb" slot="header"></div>');
+});
+
+test('it renders microdata attributes', function () {
+    $res = div()
+        ->itemprop('name')
+        ->itemscope()
+        ->itemtype('https://schema.org/Person')
+        ->itemid('123')
+        ->itemref('other-id')
+        ->toString();
+
+    expect($res)->toBe('<div itemprop="name" itemscope itemtype="https://schema.org/Person" itemid="123" itemref="other-id"></div>');
 });

@@ -23,6 +23,11 @@
         "coverage": "XDEBUG_MODE=coverage php vendor/bin/pest --coverage",
         "bench": "php vendor/bin/phpbench run tests/Benchmark --report=aggregate"
     },
+    "scripts-aliases": {
+        "test": [
+            "pest"
+        ]
+    },
     "authors": [
         {
             "name": "Christopher Kaster",
