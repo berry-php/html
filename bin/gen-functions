@@ -6,13 +6,11 @@ require __DIR__ . '/../vendor/autoload.php';
 function generate(string $elementsDir, string $namespace, string $namespaceElements, ?string $outputFile): void
 {
     $elementsDir = realpath($elementsDir);
-
     if ($elementsDir === false) {
         return;
     }
 
     $files = glob("$elementsDir/*.php");
-
     if ($files === false) {
         return;
     }
@@ -25,41 +23,51 @@ function generate(string $elementsDir, string $namespace, string $namespaceEleme
     $buffer[] = "// This file was automatically generated and should not be edited manually\n";
     $buffer[] = "\n";
 
-    $funcs = [];
+    $entries = [];
 
     foreach ($files as $file) {
         $className = basename($file, '.php');
         $fqdn = $namespaceElements . '\\' . $className;
-
         $funcName = strtolower($className);
 
         $buffer[] = "use {$fqdn};\n";
 
-        // to add functions after namespace definitions
-        $funcs[] = [$funcName, $className];
+        $docBlock = null;
+
+        try {
+            // @phpstan-ignore-next-line
+            $rc = new \ReflectionClass($fqdn);
+            $docBlock = $rc->getDocComment();
+        } catch (\Throwable $e) {
+            $docBlock = null;
+        }
+
+        $entries[] = [$funcName, $className, $docBlock];
     }
 
     $buffer[] = "\n";
 
-    foreach ($funcs as [$funcName, $className]) {
-        $buffer[] = "function $funcName(): $className\n";
+    foreach ($entries as [$funcName, $className, $docBlock]) {
+        if ($docBlock !== null && $docBlock !== false) {
+            $docBlockNorm = preg_replace("/\r\n?/", "\n", $docBlock);
+            $buffer[] = "$docBlockNorm\n";
+        }
+        $buffer[] = "function {$funcName}(): {$className}\n";
         $buffer[] = "{\n";
-        $buffer[] = "    return new $className();\n";
+        $buffer[] = "    return new {$className}();\n";
         $buffer[] = "}\n\n";
     }
 
     $res = implode('', $buffer);
 
     if ($outputFile !== null) {
-        $outputFileDir = dirname($outputFile);
-        if (!is_dir($outputFileDir)) {
-            mkdir($outputFileDir, 0755, true);
+        $outputDir = dirname($outputFile);
+        if (!is_dir($outputDir)) {
+            mkdir($outputDir, 0755, true);
         }
 
         file_put_contents($outputFile, $res);
-
-        $num = count($funcs);
-
+        $num = count($entries);
         echo "Wrote $num functions to $outputFile\n";
         return;
     }
@@ -73,3 +81,5 @@ generate(
     'Berry\Html\Elements',
     __DIR__ . '/../src/Html/functions.php',
 );
+
+?>
