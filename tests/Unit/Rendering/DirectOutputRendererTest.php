@@ -2,7 +2,7 @@
 
 use Berry\Rendering\DirectOutputRenderer;
 
-use function Berry\Html5\h1;
+use function Berry\Html\h1;
 
 test('test direct output renderer', function () {
     $content = h1()->text('Hello, World!');

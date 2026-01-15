@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-use function Berry\Html5\h1;
-use function Berry\Html5\h2;
-use function Berry\Html5\h3;
+use function Berry\Html\h1;
+use function Berry\Html\h2;
+use function Berry\Html\h3;
 use function Berry\fragment;
 
 test('test fragments', function () {

@@ -8,9 +8,9 @@ use Berry\Rendering\ResourceRenderer;
 use Berry\Element;
 use Generator;
 
-use function Berry\Html5\table;
-use function Berry\Html5\td;
-use function Berry\Html5\tr;
+use function Berry\Html\table;
+use function Berry\Html\td;
+use function Berry\Html\tr;
 
 /**
  * @BeforeMethods({"setUp"})

@@ -2,7 +2,7 @@
 
 use Berry\Rendering\ResourceRenderer;
 
-use function Berry\Html5\div;
+use function Berry\Html\div;
 
 test('test resource renderer', function () {
     $renderer = ResourceRenderer::temp();

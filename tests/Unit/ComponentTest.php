@@ -3,7 +3,7 @@
 use Berry\Component;
 use Berry\Element;
 
-use function Berry\Html5\button;
+use function Berry\Html\button;
 
 class CounterButton extends Component
 {

@@ -9,14 +9,14 @@ use Berry\Contract\IsRenderableContract;
 use Berry\Marker\HideFromInspector;
 use Berry\Element;
 
-use function Berry\Html5\details;
-use function Berry\Html5\div;
-use function Berry\Html5\li;
-use function Berry\Html5\script;
-use function Berry\Html5\span;
-use function Berry\Html5\style;
-use function Berry\Html5\summary;
-use function Berry\Html5\ul;
+use function Berry\Html\details;
+use function Berry\Html\div;
+use function Berry\Html\li;
+use function Berry\Html\script;
+use function Berry\Html\span;
+use function Berry\Html\style;
+use function Berry\Html\summary;
+use function Berry\Html\ul;
 
 /**
  * @phpstan-import-type DebugFrame from Inspector

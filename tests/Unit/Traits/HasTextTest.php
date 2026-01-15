@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-use function Berry\Html5\b;
-use function Berry\Html5\div;
-use function Berry\Html5\main;
+use function Berry\Html\b;
+use function Berry\Html\div;
+use function Berry\Html\main;
 
 test('rendering escaped text', function () {
     expect(div()->text('<b>This should be escaped</b>')->toString())->toBe('<div>&lt;b&gt;This should be escaped&lt;/b&gt;</div>');

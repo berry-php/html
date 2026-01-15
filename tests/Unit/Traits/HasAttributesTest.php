@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-use function Berry\Html5\div;
+use function Berry\Html\div;
 
 test('add arbitrary attributes', function () {
     expect(div()->attr('my-cool-attribute', '1337')->toString())->toBe('<div my-cool-attribute="1337"></div>');

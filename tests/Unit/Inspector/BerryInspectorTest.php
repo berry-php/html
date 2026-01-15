@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-use function Berry\Html5\div;
+use function Berry\Html\div;
 use function Berry\text;
 use function Berry\unsafeRawText;
 

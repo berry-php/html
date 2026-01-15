@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-use Berry\Html5\Elements\A;
+use Berry\Html\Elements\A;
 
-use function Berry\Html5\a;
+use function Berry\Html\a;
 
 test('map conditionally', function () {
     $mkLink = fn(bool $active) => a()

@@ -1,14 +1,14 @@
 <?php declare(strict_types=1);
 
-use Berry\Html5\Elements\Input;
-use Berry\Html5\Enums\InputType;
+use Berry\Html\Elements\Input;
+use Berry\Html\Enums\InputType;
 use Berry\Component;
 use Berry\Element;
 
-use function Berry\Html5\input;
-use function Berry\Html5\label;
-use function Berry\Html5\p;
-use function Berry\Html5\span;
+use function Berry\Html\input;
+use function Berry\Html\label;
+use function Berry\Html\p;
+use function Berry\Html\span;
 
 class Textfield extends Component
 {

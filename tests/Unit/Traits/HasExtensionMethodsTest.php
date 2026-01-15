@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-use Berry\Html5\Elements\Button;
-use Berry\Html5\HtmlTag;
+use Berry\Html\Elements\Button;
+use Berry\Html\HtmlTag;
 use Berry\AbstractTag;
 
-use function Berry\Html5\button;
-use function Berry\Html5\div;
-use function Berry\Html5\link;
+use function Berry\Html\button;
+use function Berry\Html\div;
+use function Berry\Html\link;
 
 test('Extension Methods', function () {
     AbstractTag::addMethod('hxPost', function (AbstractTag $node, mixed ...$args): AbstractTag {

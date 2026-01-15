@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-use function Berry\Html5\b;
-use function Berry\Html5\div;
-use function Berry\Html5\li;
-use function Berry\Html5\ul;
+use function Berry\Html\b;
+use function Berry\Html\div;
+use function Berry\Html\li;
+use function Berry\Html\ul;
 
 test('add children via function', function () {
     expect(
