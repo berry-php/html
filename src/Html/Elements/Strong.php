@@ -4,6 +4,10 @@ namespace Berry\Html\Elements;
 
 use Berry\Html\HtmlTag;
 
+/**
+ * The HTML <strong> element indicates that its contents have strong importance, seriousness, or urgency.
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/strong
+ */
 class Strong extends HtmlTag
 {
     public function __construct()

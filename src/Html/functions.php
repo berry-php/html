@@ -70,13 +70,13 @@ use Berry\Html\Elements\Style;
 use Berry\Html\Elements\Sub;
 use Berry\Html\Elements\Summary;
 use Berry\Html\Elements\Sup;
-use Berry\Html\Elements\Table;
 use Berry\Html\Elements\TBody;
+use Berry\Html\Elements\TFoot;
+use Berry\Html\Elements\THead;
+use Berry\Html\Elements\Table;
 use Berry\Html\Elements\Td;
 use Berry\Html\Elements\TextArea;
-use Berry\Html\Elements\TFoot;
 use Berry\Html\Elements\Th;
-use Berry\Html\Elements\THead;
 use Berry\Html\Elements\Time;
 use Berry\Html\Elements\Title;
 use Berry\Html\Elements\Tr;
@@ -111,11 +111,19 @@ function address(): Address
     return new Address();
 }
 
+/**
+ * The HTML <article> element represents a self-contained composition in a document, page, application, or site, which is intended to be independently distributable or reusable.
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/article
+ */
 function article(): Article
 {
     return new Article();
 }
 
+/**
+ * The HTML <aside> element represents a portion of a document whose content is only indirectly related to the document's main content.
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/aside
+ */
 function aside(): Aside
 {
     return new Aside();
@@ -130,6 +138,10 @@ function audio(): Audio
     return new Audio();
 }
 
+/**
+ * The HTML <b> element is used to draw the reader's attention to the element's contents, which are not otherwise granted special importance.
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/b
+ */
 function b(): B
 {
     return new B();
@@ -153,6 +165,10 @@ function blockquote(): Blockquote
     return new Blockquote();
 }
 
+/**
+ * The HTML <body> element represents the content of an HTML document. There can be only one <body> element in a document.
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/body
+ */
 function body(): Body
 {
     return new Body();
@@ -185,6 +201,10 @@ function canvas(): Canvas
     return new Canvas();
 }
 
+/**
+ * The HTML <code> element displays its contents styled in a fashion intended to indicate that the text is a short fragment of computer code.
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/code
+ */
 function code(): Code
 {
     return new Code();
@@ -235,6 +255,10 @@ function dialog(): Dialog
     return new Dialog();
 }
 
+/**
+ * The HTML <div> element is the generic container for flow content. It has no effect on the content or layout until styled in some way using CSS.
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div
+ */
 function div(): Div
 {
     return new Div();
@@ -276,6 +300,10 @@ function fieldset(): Fieldset
     return new Fieldset();
 }
 
+/**
+ * The HTML <footer> element represents a footer for its nearest ancestor sectioning content or sectioning root element.
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/footer
+ */
 function footer(): Footer
 {
     return new Footer();
@@ -290,31 +318,55 @@ function form(): Form
     return new Form();
 }
 
+/**
+ * The HTML <h1>–<h6> elements represent six levels of section headings. <h1> is the highest section level and <h6> is the lowest.
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements
+ */
 function h1(): H1
 {
     return new H1();
 }
 
+/**
+ * The HTML <h1>–<h6> elements represent six levels of section headings. <h1> is the highest section level and <h6> is the lowest.
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements
+ */
 function h2(): H2
 {
     return new H2();
 }
 
+/**
+ * The HTML <h1>–<h6> elements represent six levels of section headings. <h1> is the highest section level and <h6> is the lowest.
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements
+ */
 function h3(): H3
 {
     return new H3();
 }
 
+/**
+ * The HTML <h1>–<h6> elements represent six levels of section headings. <h1> is the highest section level and <h6> is the lowest.
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements
+ */
 function h4(): H4
 {
     return new H4();
 }
 
+/**
+ * The HTML <h1>–<h6> elements represent six levels of section headings. <h1> is the highest section level and <h6> is the lowest.
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements
+ */
 function h5(): H5
 {
     return new H5();
 }
 
+/**
+ * The HTML <h1>–<h6> elements represent six levels of section headings. <h1> is the highest section level and <h6> is the lowest.
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements
+ */
 function h6(): H6
 {
     return new H6();
@@ -329,11 +381,19 @@ function head(): Head
     return new Head();
 }
 
+/**
+ * The HTML <header> element represents introductory content, typically a group of introductory or navigational aids.
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/header
+ */
 function header(): Header
 {
     return new Header();
 }
 
+/**
+ * The HTML <hr> element represents a thematic break between paragraph-level elements.
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/hr
+ */
 function hr(): Hr
 {
     return new Hr();
@@ -348,6 +408,10 @@ function html(): Html
     return new Html();
 }
 
+/**
+ * The HTML <i> element represents a range of text that is set off from the normal text for some reason, such as idiomatic text, technical terms, taxonomic designations, among others.
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/i
+ */
 function i(): I
 {
     return new I();
@@ -407,6 +471,10 @@ function legend(): Legend
     return new Legend();
 }
 
+/**
+ * The HTML <li> element is used to represent an item in a list.
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li
+ */
 function li(): Li
 {
     return new Li();
@@ -421,6 +489,10 @@ function link(): Link
     return new Link();
 }
 
+/**
+ * The HTML <main> element represents the dominant content of the <body> of a document.
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/main
+ */
 function main(): Main
 {
     return new Main();
@@ -453,6 +525,10 @@ function meter(): Meter
     return new Meter();
 }
 
+/**
+ * The HTML <nav> element represents a section of a page whose purpose is to provide navigation links.
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/nav
+ */
 function nav(): Nav
 {
     return new Nav();
@@ -485,11 +561,19 @@ function option(): Option
     return new Option();
 }
 
+/**
+ * The HTML <p> element represents a paragraph.
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p
+ */
 function p(): P
 {
     return new P();
 }
 
+/**
+ * The HTML <pre> element represents preformatted text which is to be presented exactly as written in the HTML file.
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/pre
+ */
 function pre(): Pre
 {
     return new Pre();
@@ -513,6 +597,10 @@ function script(): Script
     return new Script();
 }
 
+/**
+ * The HTML <section> element represents a generic standalone section of a document, which doesn't have a more specific semantic element to represent it.
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/section
+ */
 function section(): Section
 {
     return new Section();
@@ -527,16 +615,28 @@ function select(): Select
     return new Select();
 }
 
+/**
+ * The HTML <small> element represents side-comments and small print, like copyright and legal text, independent of its styled presentation.
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/small
+ */
 function small(): Small
 {
     return new Small();
 }
 
+/**
+ * The HTML <span> element is a generic inline container for phrasing content, which does not inherently represent anything.
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span
+ */
 function span(): Span
 {
     return new Span();
 }
 
+/**
+ * The HTML <strong> element indicates that its contents have strong importance, seriousness, or urgency.
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/strong
+ */
 function strong(): Strong
 {
     return new Strong();
@@ -560,6 +660,10 @@ function sub(): Sub
     return new Sub();
 }
 
+/**
+ * The HTML <summary> element specifies a summary, caption, or legend for a <details> element's disclosure box.
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/summary
+ */
 function summary(): Summary
 {
     return new Summary();
@@ -574,21 +678,37 @@ function sup(): Sup
     return new Sup();
 }
 
+/**
+ * The HTML <tbody> element encapsulates a set of table rows (<tr> elements), indicating that they comprise the body of the table (<table>).
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/tbody
+ */
 function tbody(): TBody
 {
     return new TBody();
 }
 
+/**
+ * The HTML <tfoot> element defines a set of rows summarizing the columns of the table.
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/tfoot
+ */
 function tfoot(): TFoot
 {
     return new TFoot();
 }
 
+/**
+ * The HTML <thead> element defines a set of rows defining the head of the columns of the table.
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/thead
+ */
 function thead(): THead
 {
     return new THead();
 }
 
+/**
+ * The HTML <table> element represents tabular data — that is, information presented in a two-dimensional table comprised of rows and columns of cells containing data.
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/table
+ */
 function table(): Table
 {
     return new Table();
@@ -674,3 +794,4 @@ function video(): Video
 {
     return new Video();
 }
+
