@@ -16,9 +16,19 @@ abstract class AbstractTag implements Element, HasAttributesContract, HasExtensi
     use HasExtensionMethods;
     use Renderable;
 
-    public function __construct(
-        protected string $tagName
-    ) {}
+    /** @var array<class-string, string> */
+    private static array $tagNameMap = [];
+
+    public function __construct(string $tagName)
+    {
+        // cache tag name per subclass to avoid per-instance property
+        self::$tagNameMap[static::class] = $tagName;
+    }
+
+    protected function tagName(): string
+    {
+        return self::$tagNameMap[static::class] ?? '';
+    }
 
     /**
      * @param Closure(static): static $fn

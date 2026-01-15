@@ -9,7 +9,7 @@ class VoidTag extends AbstractTag
 {
     public function render(Renderer $renderer): void
     {
-        $renderer->write("<{$this->tagName}");
+        $renderer->write("<{$this->tagName()}");
 
         foreach ($this->getAttributes() as $key => $value) {
             $key = Escaper::escapeAttributeName(strval($key));

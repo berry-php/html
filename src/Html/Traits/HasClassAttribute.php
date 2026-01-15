@@ -9,8 +9,8 @@ trait HasClassAttribute
 {
     use HasAttributes;
 
-    /** @var string[] */
-    protected array $classes = [];
+    /** @var string[]|null */
+    protected ?array $classes = null;
 
     /**
      * Space-separated list of CSS classes.
@@ -30,6 +30,7 @@ trait HasClassAttribute
         // to mark the inserted position, this will be replaced later
         $this->attr('class', '');
 
+        $this->classes ??= [];
         array_push($this->classes, ...$class);
         $this->classes = array_values(array_unique(array_map(fn(string $class) => trim($class), $this->classes)));
 
@@ -68,14 +69,16 @@ trait HasClassAttribute
             $class = explode(' ', $class);
         }
 
-        $this->classes = array_filter($this->classes, fn(string $c) => !in_array($c, $class, true));
+        if ($this->classes !== null) {
+            $this->classes = array_filter($this->classes, fn(string $c) => !in_array($c, $class, true));
+        }
 
         return $this;
     }
 
     protected function classString(): string
     {
-        return implode(' ', $this->classes);
+        return implode(' ', $this->classes ?? []);
     }
 
     /**
@@ -83,6 +86,6 @@ trait HasClassAttribute
      */
     public function getClasses(): array
     {
-        return $this->classes;
+        return $this->classes ?? [];
     }
 }

@@ -13,8 +13,7 @@ class Tag extends AbstractTag implements HasChildrenContract
 
     public function render(Renderer $renderer): void
     {
-        // 1. Open Tag
-        $renderer->write("<{$this->tagName}");
+        $renderer->write("<{$this->tagName()}");
 
         foreach ($this->getAttributes() as $key => $value) {
             $key = Escaper::escapeAttributeName(strval($key));
@@ -26,20 +25,20 @@ class Tag extends AbstractTag implements HasChildrenContract
 
             // flags
             if ($value === true) {
-                $renderer->write(" {$key}");
+                $renderer->write(" $key");
                 continue;
             }
 
             $escaped = Escaper::escape($value);
-            $renderer->write(" {$key}=\"$escaped\"");
+            $renderer->write(" {$key}=\"{$escaped}\"");
         }
 
         $renderer->write('>');
 
-        foreach ($this->children as $child) {
+        foreach ($this->children ?? [] as $child) {
             $child?->render($renderer);
         }
 
-        $renderer->write("</{$this->tagName}>");
+        $renderer->write("</{$this->tagName()}>");
     }
 }

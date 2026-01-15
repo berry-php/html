@@ -14,9 +14,6 @@ use InvalidArgumentException;
  */
 trait HasInspector
 {
-    /** @var array<Element|null> */
-    protected array $children = [];
-
     /**
      * Returns an inspector for the current element
      *
@@ -39,7 +36,8 @@ trait HasInspector
 
         if ($dumpAsChild) {
             if ($this instanceof HasChildrenContract) {
-                $this->children[] = $inspector;
+                // Use the normal child() pathway to preserve ordering and flushing
+                $this->child($inspector);
             } else {
                 throw new InvalidArgumentException("Tried to dump inspector as a child when element doesn't support HasChildrenContract");
             }

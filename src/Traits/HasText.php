@@ -9,8 +9,8 @@ use Stringable;
 
 trait HasText
 {
-    /** @var array<Element|null> */
-    protected array $children = [];
+    /** @var array<Element|null>|null */
+    protected ?array $children = null;
 
     /**
      * Adds a text node to the element
@@ -27,6 +27,7 @@ trait HasText
             return $this;
         }
 
+        $this->children ??= [];
         $this->children[] = new Text((string) $text);
 
         return $this;
@@ -47,6 +48,7 @@ trait HasText
             return $this;
         }
 
+        $this->children ??= [];
         $this->children[] = new UnsafeRawText((string) $text);
 
         return $this;

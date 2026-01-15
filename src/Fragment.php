@@ -15,7 +15,7 @@ class Fragment implements Element, HasChildrenContract, IsRenderableContract
 
     public function render(Renderer $renderer): void
     {
-        foreach ($this->children as $child) {
+        foreach ($this->children ?? [] as $child) {
             $child?->render($renderer);
         }
     }

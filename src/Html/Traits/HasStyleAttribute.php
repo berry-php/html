@@ -8,8 +8,8 @@ trait HasStyleAttribute
 {
     use HasAttributes;
 
-    /** @var array<string, string> */
-    protected array $styles = [];
+    /** @var array<string, string>|null */
+    protected ?array $styles = null;
 
     /**
      * Contains CSS styling declarations to be applied to the element.
@@ -26,7 +26,7 @@ trait HasStyleAttribute
             return $this;
         }
 
-        $this->styles = array_merge($this->styles, $style);
+        $this->styles = array_merge($this->styles ?? [], $style);
 
         // to mark the inserted position, this will be replaced later
         $this->attr('style', '');
@@ -36,6 +36,7 @@ trait HasStyleAttribute
 
     protected function styleString(): string
     {
-        return implode('; ', array_map(fn(string $key) => "$key: {$this->styles[$key]}", array_keys($this->styles)));
+        $styles = $this->styles ?? [];
+        return implode('; ', array_map(fn(string $key) => "$key: {$styles[$key]}", array_keys($styles)));
     }
 }

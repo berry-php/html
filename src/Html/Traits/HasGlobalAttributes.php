@@ -117,13 +117,13 @@ trait HasGlobalAttributes
 
     public function getAttributes(): array
     {
-        $attributes = $this->attributes;
+        $attributes = $this->attributes ?? [];
 
-        if (count($this->classes) > 0) {
+        if (!empty($this->classes)) {
             $attributes['class'] = $this->classString();
         }
 
-        if (count($this->styles) > 0) {
+        if (!empty($this->styles)) {
             $attributes['style'] = $this->styleString();
         }
 
