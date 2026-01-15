@@ -18,7 +18,9 @@
         }
     },
     "scripts": {
-        "gen-functions": "php bin/gen-functions"
+        "gen-functions": "php bin/gen-functions",
+        "test": "php vendor/bin/pest",
+        "bench": "php vendor/bin/phpbench run tests/Benchmark --report=aggregate"
     },
     "authors": [
         {
