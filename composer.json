@@ -9,7 +9,9 @@
         },
         "files": [
             "src/functions.php",
-            "src/Html/functions.php"
+            "src/Html/functions.php",
+            "src/Svg/functions.php",
+            "src/Xml/functions.php"
         ]
     },
     "autoload-dev": {
