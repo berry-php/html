@@ -18,3 +18,13 @@ test('fieldset with attributes', function () {
 test('legend renders basic', function () {
     expect(legend()->toString())->toBe('<legend></legend>');
 });
+
+test('fieldset renders with comfort functions', function () {
+    expect(
+        fieldset()
+            ->legend(function ($legend) {
+                return $legend->text('Legend Text');
+            })
+            ->toString()
+    )->toBe('<fieldset><legend>Legend Text</legend></fieldset>');
+});

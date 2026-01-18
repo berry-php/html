@@ -3,6 +3,7 @@
 namespace Berry\Html\Elements;
 
 use Berry\Html\HtmlTag;
+use Closure;
 
 /**
  * The HTML <datalist> element contains a set of <option> elements that represent the permissible or recommended options available to choose from within other controls.
@@ -13,6 +14,26 @@ class Datalist extends HtmlTag
     public function __construct()
     {
         parent::__construct('datalist');
+    }
+
+    /**
+     * Adds a new option element.
+     * @param string|null $value
+     * @param string|null $text
+     */
+    public function option(?string $value = null, ?string $text = null): static
+    {
+        $option = new Option();
+
+        if ($value !== null) {
+            $option->value($value);
+        }
+
+        if ($text !== null) {
+            $option->text($text);
+        }
+
+        return $this->child($option);
     }
 
     /**

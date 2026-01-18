@@ -3,6 +3,8 @@
 namespace Berry\Html\Elements;
 
 use Berry\Html\HtmlTag;
+use Berry\Element;
+use Closure;
 
 /**
  * The HTML <select> element represents a control that provides a menu of options.
@@ -13,6 +15,42 @@ class Select extends HtmlTag
     public function __construct()
     {
         parent::__construct('select');
+    }
+
+    /**
+     * Adds a new option element.
+     * @param string|(Closure(): string)|null $content
+     */
+    public function option(string|Closure|null $content = null): static
+    {
+        $option = new Option();
+
+        if ($content instanceof Closure) {
+            $content = $content();
+        }
+
+        if (is_string($content)) {
+            $option->text($content);
+        }
+
+        return $this->child($option);
+    }
+
+    /**
+     * Adds a new optgroup element.
+     * @param Element|(Closure(Optgroup): Optgroup)|null $config
+     */
+    public function optgroup(Element|Closure|null $config = null): static
+    {
+        $optgroup = new Optgroup();
+
+        if ($config instanceof Closure) {
+            $config($optgroup);
+        } elseif ($config !== null) {
+            $optgroup->child($config);
+        }
+
+        return $this->child($optgroup);
     }
 
     /**

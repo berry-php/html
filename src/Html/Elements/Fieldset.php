@@ -3,6 +3,8 @@
 namespace Berry\Html\Elements;
 
 use Berry\Html\HtmlTag;
+use Berry\Element;
+use Closure;
 
 /**
  * The HTML <fieldset> element is used to group several controls as well as labels (<label>) within a web form.
@@ -13,6 +15,23 @@ class Fieldset extends HtmlTag
     public function __construct()
     {
         parent::__construct('fieldset');
+    }
+
+    /**
+     * Adds a new legend element.
+     * @param Element|(Closure(Legend): Legend)|null $config
+     */
+    public function legend(Element|Closure|null $config = null): static
+    {
+        $legend = new Legend();
+
+        if ($config instanceof Closure) {
+            $config($legend);
+        } elseif ($config !== null) {
+            $legend->child($config);
+        }
+
+        return $this->child($legend);
     }
 
     /**
