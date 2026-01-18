@@ -10,7 +10,7 @@ interface HasChildrenContract
     /**
      * Adds a child element
      *
-     * @param Element|(Closure(): Element)|null $child
+     * @param Element|(Closure(): (Element|null))|null $child
      */
     public function child(Element|Closure|null $child): static;
 
@@ -18,9 +18,10 @@ interface HasChildrenContract
      * Adds a child element conditionally
      *
      * @param (Closure(): bool)|bool $condition
-     * @param Element|(Closure(): Element)|null $child
+     * @param Closure(): (Element|null) $child
+     * @param (Closure(): (Element|null))|null $else
      */
-    public function childWhen(Closure|bool $condition, Element|Closure|null $child): static;
+    public function childWhen(Closure|bool $condition, Closure $child, ?Closure $else = null): static;
 
     /**
      * Adds multiple children at once

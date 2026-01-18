@@ -39,16 +39,19 @@ trait HasClassAttribute
 
     /**
      * @param (Closure(): bool)|bool $condition
-     * @param (Closure(): (string|string[]))|string|string[] $class
+     * @param Closure(): (string|string[]) $class
+     * @param (Closure(): (string|string[]))|null $else
      */
-    public function classWhen(Closure|bool $condition, Closure|string|array $class): static
+    public function classWhen(Closure|bool $condition, Closure $class, ?Closure $else = null): static
     {
         if ($condition instanceof Closure) {
-            return $this->classWhen($condition(), $class);
+            return $this->classWhen($condition(), $class, $else);
         }
 
         if ($condition) {
             return $this->class($class);
+        } elseif ($else !== null) {
+            return $this->class($else);
         }
 
         return $this;

@@ -42,14 +42,16 @@ trait HasChildren
         return $this;
     }
 
-    public function childWhen(Closure|bool $condition, Element|Closure|null $child): static
+    public function childWhen(Closure|bool $condition, Closure $child, ?Closure $else = null): static
     {
         if ($condition instanceof Closure) {
-            return $this->childWhen($condition(), $child);
+            return $this->childWhen($condition(), $child, $else);
         }
 
         if ($condition) {
             return $this->child($child);
+        } elseif ($else !== null) {
+            return $this->child($else);
         }
 
         return $this;

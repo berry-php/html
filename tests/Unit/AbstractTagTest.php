@@ -27,4 +27,17 @@ test('map conditionally', function () {
 
     expect($mkLink(true))->toBe('<a href="https://example.com" class="active">Link</a>');
     expect($mkLink(false))->toBe('<a href="https://example.com">Link</a>');
+
+    $mkLink = fn(bool $active) => a()
+        ->href('https://example.com')
+        ->mapWhen(
+            fn() => $active, 
+            fn(A $a): A => $a->class('active'),
+            fn(A $a): A => $a->class('inactive')
+        )
+        ->text('Link')
+        ->toString();
+
+    expect($mkLink(true))->toBe('<a href="https://example.com" class="active">Link</a>');
+    expect($mkLink(false))->toBe('<a href="https://example.com" class="inactive">Link</a>');
 });

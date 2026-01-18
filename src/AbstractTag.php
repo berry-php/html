@@ -41,15 +41,18 @@ abstract class AbstractTag implements Element, HasAttributesContract, HasExtensi
     /**
      * @param (Closure(): bool)|bool $condition
      * @param Closure(static): static $fn
+     * @param (Closure(static): static)|null $else
      */
-    public function mapWhen(Closure|bool $condition, Closure $fn): static
+    public function mapWhen(Closure|bool $condition, Closure $fn, ?Closure $else = null): static
     {
         if ($condition instanceof Closure) {
-            return $this->mapWhen($condition(), $fn);
+            return $this->mapWhen($condition(), $fn, $else);
         }
 
         if ($condition) {
             return $fn($this);
+        } elseif ($else !== null) {
+            return $else($this);
         }
 
         return $this;

@@ -29,7 +29,7 @@ class Textfield extends Component
                 input()
                     ->name($this->name)
                     ->class('input w-full')
-                    ->classWhen($this->error !== null, 'input-error')
+                    ->classWhen($this->error !== null, fn() => 'input-error')
                     ->mapWhen($this->value !== null, fn(Input $input) => $input->value($this->value ?? ''))
                     ->type($this->type)
             )

@@ -14,12 +14,29 @@ test('add children via function', function () {
 test('add children conditionally', function () {
     expect(
         ul()
-            ->childWhen(false, li()->text('This should not appear'))
-            ->childWhen(fn() => false, li()->text('This should not appear either'))
-            ->childWhen(true, li()->text('This should'))
-            ->childWhen(fn() => true, li()->text('This should too'))
+            ->childWhen(false, fn() => li()->text('This should not appear'))
+            ->childWhen(fn() => false, fn() => li()->text('This should not appear either'))
+            ->childWhen(true, fn() => li()->text('This should'))
+            ->childWhen(fn() => true, fn() => li()->text('This should too'))
             ->toString()
     )->toBe('<ul><li>This should</li><li>This should too</li></ul>');
+});
+
+test('add children conditionally with else', function () {
+    expect(
+        ul()
+            ->childWhen(
+                true,
+                fn() => li()->text('Shown'),
+                fn() => li()->text('Hidden')
+            )
+            ->childWhen(
+                false,
+                fn() => li()->text('Hidden'),
+                fn() => li()->text('Shown too')
+            )
+            ->toString()
+    )->toBe('<ul><li>Shown</li><li>Shown too</li></ul>');
 });
 
 test('add multiple children at once', function () {

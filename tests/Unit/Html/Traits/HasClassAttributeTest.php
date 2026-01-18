@@ -20,7 +20,15 @@ test('test adding class with multiple calls', function () {
 });
 
 test('test conditionally adding classes', function () {
-    expect(div()->classWhen(true, 'yes')->classWhen(fn() => false, 'no')->toString())->toBe('<div class="yes"></div>');
+    expect(div()->classWhen(true, fn() => 'yes')->classWhen(fn() => false, fn() => 'no')->toString())->toBe('<div class="yes"></div>');
+});
+
+test('test conditionally adding classes with else', function () {
+    expect(div()
+        ->classWhen(true, fn() => 'yes', fn() => 'no')
+        ->classWhen(false, fn() => 'hidden', fn() => 'visible')
+        ->toString()
+    )->toBe('<div class="yes visible"></div>');
 });
 
 test('test removing classes', function () {
