@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 use Berry\Html\Enums\Crossorigin;
 use Berry\Html\Enums\ReferrerPolicy;
@@ -27,5 +29,7 @@ test('link renders extended attributes', function () {
         ->fetchpriority('high')
         ->toString();
 
-    expect($res)->toBe('<link href="/app.css" rel="preload" as="style" crossorigin="anonymous" hreflang="en" imagesizes="100vw" imagesrcset="/a 1x, /b 2x" integrity="sha256-..." media="all" referrerpolicy="no-referrer" sizes="16x16 32x32" type="text/css" fetchpriority="high" />');
+    expect($res)->toBe(
+        '<link href="/app.css" rel="preload" as="style" crossorigin="anonymous" hreflang="en" imagesizes="100vw" imagesrcset="/a 1x, /b 2x" integrity="sha256-..." media="all" referrerpolicy="no-referrer" sizes="16x16 32x32" type="text/css" fetchpriority="high" />',
+    );
 });

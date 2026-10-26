@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 require '../vendor/autoload.php';
 
@@ -33,9 +35,9 @@ function counterButton(int $value): HtmlTag
         ->child(
             button()
                 ->id('counter-button')
-                ->attr('hx-post', "$current?counter=$nextValue")
+                ->attr('hx-post', "{$current}?counter={$nextValue}")
                 ->attr('hx-swap', 'outerHTML')
-                ->text("+ $value")
+                ->text("+ {$value}"),
         );
 }
 
@@ -44,17 +46,25 @@ function counterButton(int $value): HtmlTag
 function layout(Element $content): HtmlTag
 {
     return html()
-        ->child(head()
-            ->child(title()->text('Hello, Berry!'))
-            ->child(link()
-                ->rel(Rel::Stylesheet)
-                ->href('https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css')))
-        ->child(body()
-            ->child(header())
-            ->child(div()
-                ->class('container')
-                ->child($content))
-            ->child(script()->src('https://cdnjs.cloudflare.com/ajax/libs/htmx/2.0.7/htmx.min.js')));
+        ->child(
+            head()
+                ->child(title()->text('Hello, Berry!'))
+                ->child(
+                    link()
+                        ->rel(Rel::Stylesheet)
+                        ->href('https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css'),
+                ),
+        )
+        ->child(
+            body()
+                ->child(header())
+                ->child(
+                    div()
+                        ->class('container')
+                        ->child($content),
+                )
+                ->child(script()->src('https://cdnjs.cloudflare.com/ajax/libs/htmx/2.0.7/htmx.min.js')),
+        );
 }
 
 // if we get a POST render only the counter button and stop
@@ -74,5 +84,5 @@ echo layout(
         ->class('container')
         ->child(h1()->text('Hello, Berry!'))
         ->child(p()->text('This is an example page rendering HTML using Berry'))
-        ->child(counterButton(1))
+        ->child(counterButton(1)),
 )->toString();

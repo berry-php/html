@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 use Berry\Html\Enums\AriaRole;
 
@@ -22,7 +24,9 @@ test('it converts boolean aria attributes to string true/false', function () {
         ->ariaRequired()
         ->toString();
 
-    expect($res)->toBe('<div aria-hidden="true" aria-expanded="false" aria-disabled="true" aria-atomic="true" aria-busy="false" aria-required="true"></div>');
+    expect($res)->toBe(
+        '<div aria-hidden="true" aria-expanded="false" aria-disabled="true" aria-atomic="true" aria-busy="false" aria-required="true"></div>',
+    );
 });
 
 test('it handles mixed aria-checked and aria-pressed states', function () {
@@ -41,7 +45,9 @@ test('it renders relationship and labeling attributes', function () {
         ->ariaFlowTo('next-section')
         ->toString();
 
-    expect($res)->toBe('<div aria-label="Close" aria-labelledby="title-id" aria-describedby="desc-id" aria-controls="menu-id" aria-owns="child-id" aria-flowto="next-section"></div>');
+    expect($res)->toBe(
+        '<div aria-label="Close" aria-labelledby="title-id" aria-describedby="desc-id" aria-controls="menu-id" aria-owns="child-id" aria-flowto="next-section"></div>',
+    );
 });
 
 test('it renders numeric aria attributes as strings', function () {
@@ -53,7 +59,9 @@ test('it renders numeric aria attributes as strings', function () {
         ->ariaValueMax(100)
         ->toString();
 
-    expect($res)->toBe('<div aria-posinset="3" aria-setsize="10" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>');
+    expect($res)->toBe(
+        '<div aria-posinset="3" aria-setsize="10" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>',
+    );
 });
 
 test('it handles live regions and autocomplete', function () {

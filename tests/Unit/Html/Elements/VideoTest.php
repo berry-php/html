@@ -1,7 +1,10 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 use Berry\Html\Enums\Crossorigin;
 use Berry\Html\Enums\Preload;
+
 use function Berry\Html\video;
 
 test('video renders basic', function () {
@@ -34,5 +37,7 @@ test('video with all attributes', function () {
         ->crossorigin(Crossorigin::Anonymous)
         ->toString();
 
-    expect($result)->toBe('<video src="movie.mp4" controls autoplay loop muted width="640" height="480" poster="poster.jpg" preload="metadata" crossorigin="anonymous"></video>');
+    expect($result)->toBe(
+        '<video src="movie.mp4" controls autoplay loop muted width="640" height="480" poster="poster.jpg" preload="metadata" crossorigin="anonymous"></video>',
+    );
 });

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Berry\Html\Elements;
 
@@ -15,6 +17,16 @@ final class Script extends HtmlTag
     public function __construct()
     {
         parent::__construct('script');
+    }
+
+    /**
+     * Append JSON data safe to embed in an HTML script element.
+     * Encoding failures throw JsonException; no partial JSON is appended.
+     */
+    public function json(mixed $data): static
+    {
+        $json = json_encode($data, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_THROW_ON_ERROR);
+        return $this->type('application/json')->unsafeRaw($json);
     }
 
     /**
@@ -89,7 +101,11 @@ final class Script extends HtmlTag
      */
     public function referrerpolicy(ReferrerPolicy|string $value): static
     {
-        return $this->attr('referrerpolicy', $value instanceof ReferrerPolicy ? $value->value : $value, escapeKey: false);
+        return $this->attr(
+            'referrerpolicy',
+            $value instanceof ReferrerPolicy ? $value->value : $value,
+            escapeKey: false,
+        );
     }
 
     /**

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 use function Berry\Html\blockquote;
 
@@ -7,5 +9,6 @@ test('blockquote renders basic', function () {
 });
 
 test('blockquote with cite', function () {
-    expect(blockquote()->cite('https://example.com')->toString())->toBe('<blockquote cite="https://example.com"></blockquote>');
+    expect(blockquote()->cite('https://example.com')->toString())
+        ->toBe('<blockquote cite="https://example.com"></blockquote>');
 });

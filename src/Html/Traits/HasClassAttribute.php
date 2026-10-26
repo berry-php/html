@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Berry\Html\Traits;
 
@@ -31,8 +33,9 @@ trait HasClassAttribute
         $this->attr('class', '', escapeKey: false, escapeValue: false);
 
         $this->classes ??= [];
-        array_push($this->classes, ...$class);
-        $this->classes = array_values((array_map(fn(string $class) => trim($class), $this->classes)));
+        foreach ($class as $name) {
+            $this->classes[] = trim($name);
+        }
 
         return $this;
     }
@@ -44,8 +47,11 @@ trait HasClassAttribute
      * @param (Closure(): (string|string[]))|string[]|string $class
      * @param (Closure(): (string|string[]))|string[]|string|null $else
      */
-    public function classWhen(Closure|bool $condition, Closure|array|string $class, Closure|array|string|null $else = null): static
-    {
+    public function classWhen(
+        Closure|bool $condition,
+        Closure|array|string $class,
+        Closure|array|string|null $else = null,
+    ): static {
         if ($condition instanceof Closure) {
             return $this->classWhen($condition(), $class, $else);
         }
@@ -75,7 +81,7 @@ trait HasClassAttribute
         }
 
         if ($this->classes !== null) {
-            $this->classes = array_filter($this->classes, fn(string $c) => !in_array($c, $class, true));
+            $this->classes = array_filter($this->classes, static fn(string $c) => !in_array($c, $class, true));
         }
 
         return $this;

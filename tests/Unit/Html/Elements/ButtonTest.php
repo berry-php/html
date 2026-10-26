@@ -1,12 +1,16 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 use Berry\Html\Enums\ButtonType;
 use Berry\Html\Enums\FormMethod;
 use Berry\Html\Enums\Target;
+
 use function Berry\Html\button;
 
 test('button renders with attrs', function () {
-    expect(button()->text('Click')->type('submit')->disabled()->toString())->toBe('<button type="submit" disabled>Click</button>');
+    expect(button()->text('Click')->type('submit')->disabled()->toString())
+        ->toBe('<button type="submit" disabled>Click</button>');
 });
 
 test('button with enum type renders', function () {
@@ -23,5 +27,7 @@ test('button with form attributes', function () {
         ->formtarget(Target::Blank)
         ->toString();
 
-    expect($res)->toBe('<button form="my-form" formaction="/submit" formenctype="multipart/form-data" formmethod="POST" formnovalidate formtarget="_blank"></button>');
+    expect($res)->toBe(
+        '<button form="my-form" formaction="/submit" formenctype="multipart/form-data" formmethod="POST" formnovalidate formtarget="_blank"></button>',
+    );
 });

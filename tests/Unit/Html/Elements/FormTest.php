@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 use Berry\Html\Enums\FormMethod;
 use Berry\Html\Enums\Rel;
@@ -21,5 +23,7 @@ test('form renders with more attributes', function () {
         ->rel(Rel::NoOpener)
         ->toString();
 
-    expect($res)->toBe('<form name="f" enctype="multipart/form-data" novalidate target="_blank" autocomplete="on" accept-charset="utf-8" rel="noopener"></form>');
+    expect($res)->toBe(
+        '<form name="f" enctype="multipart/form-data" novalidate target="_blank" autocomplete="on" accept-charset="utf-8" rel="noopener"></form>',
+    );
 });

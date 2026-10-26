@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Berry\Contract;
 
@@ -24,10 +26,10 @@ interface HasChildrenContract
     public function childWhen(Closure|bool $condition, Closure $child, ?Closure $else = null): static;
 
     /**
-     * Adds multiple children at once
+     * Consumes children once and renders each child immediately.
      *
-     * @param array<Element|null>|(Closure(): array<Element|null>) $children
+     * @param iterable<Element|null>|(Closure(): iterable<Element|null>) $children
      * @param Element|(Closure(): Element)|null $else Called when the list of children is empty
      */
-    public function children(array|Closure $children, Element|Closure|null $else = null): static;
+    public function children(iterable|Closure $children, Element|Closure|null $else = null): static;
 }

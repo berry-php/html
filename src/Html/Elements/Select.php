@@ -1,8 +1,11 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Berry\Html\Elements;
 
 use Berry\Html\HtmlTag;
+use Berry\Html\Traits\HasOptions;
 use Berry\Element;
 use Closure;
 
@@ -12,28 +15,11 @@ use Closure;
  */
 final class Select extends HtmlTag
 {
+    use HasOptions;
+
     public function __construct()
     {
         parent::__construct('select');
-    }
-
-    /**
-     * Adds a new option element.
-     * @param string|(Closure(): string)|null $content
-     */
-    public function option(string|Closure|null $content = null): static
-    {
-        $option = new Option();
-
-        if ($content instanceof Closure) {
-            $content = $content();
-        }
-
-        if (is_string($content)) {
-            $option->text($content);
-        }
-
-        return $this->child($option);
     }
 
     /**

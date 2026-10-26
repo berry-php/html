@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Berry\Traits;
 
@@ -10,8 +12,12 @@ trait HasAttributes
     /** @var array<string, string|true>|null */
     protected ?array $attributes = null;
 
-    public function attr(string $key, Stringable|string|int|float|bool $value, bool $escapeKey = true, bool $escapeValue = true): static
-    {
+    public function attr(
+        string $key,
+        Stringable|string|int|float|bool $value,
+        bool $escapeKey = true,
+        bool $escapeValue = true,
+    ): static {
         $this->attributes ??= [];
 
         $key = $escapeKey ? Escaper::escapeAttributeName($key) : strval($key);

@@ -1,28 +1,40 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Berry\Tests\Benchmark;
 
 use Berry\Escaper;
+use Generator;
 
 use function Berry\Html\div;
 
 /**
  * @BeforeMethods({"setUp"})
+ * @ParamProviders({"provideAttributeCounts"})
  * @Revs(10)
+ * @Iterations(3)
+ * @Warmup(20)
  */
 final class LotsOfAttributesBench
 {
-    private const int NUM_ATTRS = 500_000;
-
     /** @var array<string, string> */
     private array $attributes = [];
 
-    public function setUp(): void
+    /** @return Generator<string, array{attributes: int}> */
+    public function provideAttributeCounts(): Generator
     {
-        for ($i = 0; $i < self::NUM_ATTRS; $i++) {
-            $key = uniqid('attr-', true);
+        yield 'typical' => ['attributes' => 8];
+        yield 'attribute-heavy' => ['attributes' => 32];
+        yield 'stress' => ['attributes' => 500_000];
+    }
 
-            $this->attributes[$key] = hash('md5', $key);
+    /** @param array{attributes: int} $params */
+    public function setUp(array $params): void
+    {
+        $this->attributes = [];
+        for ($i = 0; $i < $params['attributes']; $i++) {
+            $this->attributes["attr-{$i}"] = "value-{$i} & \"quoted\"";
         }
     }
 
@@ -45,13 +57,9 @@ final class LotsOfAttributesBench
             $key = Escaper::escapeAttributeName($key);
             $value = Escaper::escape($value);
 
-            $div .= " $key=\"$value\"";
+            $div .= " {$key}=\"{$value}\"";
         }
 
         $div .= '></div>';
-
-        ob_start();
-        echo $div;
-        ob_end_clean();
     }
 }

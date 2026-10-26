@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 use function Berry\Html\div;
 
@@ -30,9 +32,20 @@ test('test complex style formatting', function () {
     $styles = [
         'background-color' => '#fff',
         'border' => '1px solid black',
-        'z-index' => '999'
+        'z-index' => '999',
     ];
 
     expect(div()->style($styles)->toString())
         ->toBe('<div style="background-color: #fff; border: 1px solid black; z-index: 999"></div>');
+});
+
+test('quoted CSS values are serialized as one escaped HTML attribute', function () {
+    $html = div()->style(['font-family' => '"Open Sans", sans-serif', 'content' => '"<&>"'])->toString();
+    expect($html)->toBe(
+        '<div style="font-family: &quot;Open Sans&quot;, sans-serif; content: &quot;&lt;&amp;&gt;&quot;"></div>',
+    );
+    $doc = new DOMDocument();
+    expect($doc->loadXML($html))->toBeTrue();
+    expect($doc->documentElement?->getAttribute('style'))->toBe('font-family: "Open Sans", sans-serif; content: "<&>"');
+    expect($doc->documentElement?->attributes->length)->toBe(1);
 });

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 use Berry\Html\Elements\TBody;
 use Berry\Html\Elements\Td;
@@ -6,6 +8,7 @@ use Berry\Html\Elements\TFoot;
 use Berry\Html\Elements\THead;
 use Berry\Html\Elements\Th;
 use Berry\Html\Elements\Tr;
+
 use function Berry\Html\table;
 use function Berry\Html\tbody;
 use function Berry\Html\td;
@@ -20,8 +23,11 @@ test('table renders with child', function () {
             ->child(thead()->child(th()->text('Col')))
             ->child(tbody()->child(tr()->child(td()->text('Hello, Table'))))
             ->child(tfoot()->child(tr()->child(td()->text('Foot'))))
-            ->toString()
-    )->toBe('<table><thead><th>Col</th></thead><tbody><tr><td>Hello, Table</td></tr></tbody><tfoot><tr><td>Foot</td></tr></tfoot></table>');
+            ->toString(),
+    )
+        ->toBe(
+            '<table><thead><th>Col</th></thead><tbody><tr><td>Hello, Table</td></tr></tbody><tfoot><tr><td>Foot</td></tr></tfoot></table>',
+        );
 });
 
 test('table with colspan and rowspan', function () {
@@ -42,46 +48,28 @@ test('colspan throws exception for values less than 1', function () {
 test('table renders with comfort functions', function () {
     expect(
         table()
-            ->thead(function (THead $thead): THead {
-                return $thead->tr(function (Tr $tr): Tr {
-                    return $tr->th(function (Th $th): Th {
-                        return $th->text('Col 1');
-                    })->th(function (Th $th): Th {
-                        return $th->text('Col 2');
-                    });
-                });
-            })
-            ->tbody(function (TBody $tbody): TBody {
-                return $tbody->tr(function (Tr $tr): Tr {
-                    return $tr->td(function (Td $td): Td {
-                        return $td->text('Row 1 Col 1');
-                    })->td(function (Td $td): Td {
-                        return $td->text('Row 1 Col 2');
-                    });
-                });
-            })
-            ->tfoot(function (TFoot $tfoot): TFoot {
-                return $tfoot->tr(function (Tr $tr): Tr {
-                    return $tr->td(function (Td $td): Td {
-                        return $td->text('Foot 1');
-                    })->td(function (Td $td): Td {
-                        return $td->text('Foot 2');
-                    });
-                });
-            })
-            ->toString()
-    )->toBe('<table><thead><tr><th>Col 1</th><th>Col 2</th></tr></thead><tbody><tr><td>Row 1 Col 1</td><td>Row 1 Col 2</td></tr></tbody><tfoot><tr><td>Foot 1</td><td>Foot 2</td></tr></tfoot></table>');
+            ->thead(fn(THead $thead): THead => $thead->tr(fn(Tr $tr): Tr => $tr
+                ->th(fn(Th $th): Th => $th->text('Col 1'))
+                ->th(fn(Th $th): Th => $th->text('Col 2'))))
+            ->tbody(fn(TBody $tbody): TBody => $tbody->tr(fn(Tr $tr): Tr => $tr
+                ->td(fn(Td $td): Td => $td->text('Row 1 Col 1'))
+                ->td(fn(Td $td): Td => $td->text('Row 1 Col 2'))))
+            ->tfoot(fn(TFoot $tfoot): TFoot => $tfoot->tr(fn(Tr $tr): Tr => $tr
+                ->td(fn(Td $td): Td => $td->text('Foot 1'))
+                ->td(fn(Td $td): Td => $td->text('Foot 2'))))
+            ->toString(),
+    )
+        ->toBe(
+            '<table><thead><tr><th>Col 1</th><th>Col 2</th></tr></thead><tbody><tr><td>Row 1 Col 1</td><td>Row 1 Col 2</td></tr></tbody><tfoot><tr><td>Foot 1</td><td>Foot 2</td></tr></tfoot></table>',
+        );
 });
 
 test('tr renders with comfort functions', function () {
     expect(
         tr()
-            ->th(function ($th) {
-                return $th->text('Header');
-            })
-            ->td(function ($td) {
-                return $td->text('Data');
-            })
-            ->toString()
-    )->toBe('<tr><th>Header</th><td>Data</td></tr>');
+            ->th(fn($th) => $th->text('Header'))
+            ->td(fn($td) => $td->text('Data'))
+            ->toString(),
+    )
+        ->toBe('<tr><th>Header</th><td>Data</td></tr>');
 });

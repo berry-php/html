@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Berry\Html\Enums;
 
@@ -7,6 +9,8 @@ namespace Berry\Html\Enums;
  * Based on WAI-ARIA 1.2/1.3 and MDN Reference
  * @link https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles
  */
+// Roles mirror the ARIA specification rather than an arbitrary size limit.
+// @mago-expect lint:too-many-enum-cases
 enum AriaRole: string
 {
     case Banner = 'banner';

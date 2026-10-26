@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Berry\Html\Elements;
 
@@ -118,7 +120,11 @@ final class Link extends HtmlVoidTag
      */
     public function referrerpolicy(ReferrerPolicy|string $value): static
     {
-        return $this->attr('referrerpolicy', $value instanceof ReferrerPolicy ? $value->value : $value, escapeKey: false);
+        return $this->attr(
+            'referrerpolicy',
+            $value instanceof ReferrerPolicy ? $value->value : $value,
+            escapeKey: false,
+        );
     }
 
     /**

@@ -1,7 +1,11 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Berry\Html\Enums;
 
+// Link relationships mirror the HTML specification rather than an arbitrary size limit.
+// @mago-expect lint:too-many-enum-cases
 enum Rel: string
 {
     case Alternate = 'alternate';

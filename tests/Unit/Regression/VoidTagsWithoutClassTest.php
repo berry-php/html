@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 use Berry\Html\Elements\Input;
 use Berry\Html\Enums\InputType;
@@ -18,7 +20,8 @@ class Textfield extends Component
         protected InputType $type = InputType::Text,
         protected ?string $value = null,
         protected ?string $error = null,
-    ) {}
+    ) {
+    }
 
     public function renderComponent(): Element
     {
@@ -29,14 +32,16 @@ class Textfield extends Component
                 input()
                     ->name($this->name)
                     ->class('input w-full')
-                    ->classWhen($this->error !== null, fn() => 'input-error')
+                    ->classWhen($this->error !== null, static fn() => 'input-error')
                     ->mapWhen($this->value !== null, fn(Input $input) => $input->value($this->value ?? ''))
-                    ->type($this->type)
+                    ->type($this->type),
             )
             ->childWhen($this->error !== null, fn() => p()->class('text-error text-xs')->text($this->error));
     }
 }
 
+// Keep both fixtures together to exercise inherited component rendering.
+// @mago-expect lint:single-class-per-file
 class Emailfield extends Textfield
 {
     public function __construct(string $label, string $name, ?string $value = null, ?string $error = null)
@@ -46,7 +51,16 @@ class Emailfield extends Textfield
 }
 
 test('regression test: class / value empty', function () {
-    expect((new Emailfield('E-Mail', 'email'))->toString())->toBe('<label class="floating-label"><span>E-Mail</span><input name="email" class="input w-full" type="email" /></label>');
-    expect((new Emailfield('E-Mail', 'email', 'test@example.com'))->toString())->toBe('<label class="floating-label"><span>E-Mail</span><input name="email" class="input w-full" value="test@example.com" type="email" /></label>');
-    expect((new Emailfield('E-Mail', 'email', 'test@', 'Invalid'))->toString())->toBe('<label class="floating-label"><span>E-Mail</span><input name="email" class="input w-full input-error" value="test@" type="email" /><p class="text-error text-xs">Invalid</p></label>');
+    expect((new Emailfield('E-Mail', 'email'))->toString())
+        ->toBe(
+            '<label class="floating-label"><span>E-Mail</span><input name="email" class="input w-full" type="email" /></label>',
+        );
+    expect((new Emailfield('E-Mail', 'email', 'test@example.com'))->toString())
+        ->toBe(
+            '<label class="floating-label"><span>E-Mail</span><input name="email" class="input w-full" value="test@example.com" type="email" /></label>',
+        );
+    expect((new Emailfield('E-Mail', 'email', 'test@', 'Invalid'))->toString())
+        ->toBe(
+            '<label class="floating-label"><span>E-Mail</span><input name="email" class="input w-full input-error" value="test@" type="email" /><p class="text-error text-xs">Invalid</p></label>',
+        );
 });

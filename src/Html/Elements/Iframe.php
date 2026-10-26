@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Berry\Html\Elements;
 
@@ -77,7 +79,11 @@ final class Iframe extends HtmlTag
      */
     public function referrerpolicy(ReferrerPolicy|string $referrerpolicy): static
     {
-        return $this->attr('referrerpolicy', $referrerpolicy instanceof ReferrerPolicy ? $referrerpolicy->value : $referrerpolicy, escapeKey: false);
+        return $this->attr(
+            'referrerpolicy',
+            $referrerpolicy instanceof ReferrerPolicy ? $referrerpolicy->value : $referrerpolicy,
+            escapeKey: false,
+        );
     }
 
     /**

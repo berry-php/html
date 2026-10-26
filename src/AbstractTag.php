@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Berry;
 
@@ -52,7 +54,7 @@ abstract class AbstractTag implements Element, HasAttributesContract, HasExtensi
     {
         $attributes = $this->getAttributes();
 
-        if (empty($attributes)) {
+        if (count($attributes) === 0) {
             return '';
         }
 
@@ -65,7 +67,7 @@ abstract class AbstractTag implements Element, HasAttributesContract, HasExtensi
 
             // handle flags
             if ($value === true) {
-                $out .= " $key";
+                $out .= " {$key}";
                 continue;
             }
 

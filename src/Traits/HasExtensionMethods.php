@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Berry\Traits;
 
@@ -29,7 +31,7 @@ trait HasExtensionMethods
         $func = static::findExtensionMethod($name);
 
         if ($func === null) {
-            throw new BadMethodCallException("Could not find method $name");
+            throw new BadMethodCallException("Could not find method {$name}");
         }
 
         return $func($this, ...$arguments);
@@ -38,7 +40,7 @@ trait HasExtensionMethods
     /**
      * @return (Closure(static, mixed...): mixed)|null
      */
-    protected static function findExtensionMethod(string $name): Closure|null
+    protected static function findExtensionMethod(string $name): ?Closure
     {
         // if we have it return it
         if (isset(static::$extensionMethods[static::class][$name])) {

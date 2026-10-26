@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Berry\Traits;
 
@@ -42,20 +44,19 @@ trait HasChildren
         return $this;
     }
 
-    public function children(array|Closure $children, Element|Closure|null $else = null): static
+    public function children(iterable|Closure $children, Element|Closure|null $else = null): static
     {
         if ($children instanceof Closure) {
             $children = $children();
         }
 
-        if (count($children) === 0) {
-            return $this->child($else);
-        }
+        $empty = true;
 
         foreach ($children as $c) {
             $this->child($c);
+            $empty = false;
         }
 
-        return $this;
+        return $empty ? $this->child($else) : $this;
     }
 }

@@ -1,9 +1,10 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Berry\Html\Elements;
 
 use Berry\Html\HtmlTag;
-use Closure;
 
 /**
  * The HTML <datalist> element contains a set of <option> elements that represent the permissible or recommended options available to choose from within other controls.

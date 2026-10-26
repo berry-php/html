@@ -1,7 +1,10 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 use Berry\Html\Enums\Crossorigin;
 use Berry\Html\Enums\Preload;
+
 use function Berry\Html\audio;
 
 test('audio renders basic', function () {
@@ -27,5 +30,7 @@ test('audio with all attributes', function () {
         ->crossorigin(Crossorigin::Anonymous)
         ->toString();
 
-    expect($result)->toBe('<audio src="sound.mp3" controls autoplay loop muted preload="metadata" crossorigin="anonymous"></audio>');
+    expect($result)->toBe(
+        '<audio src="sound.mp3" controls autoplay loop muted preload="metadata" crossorigin="anonymous"></audio>',
+    );
 });

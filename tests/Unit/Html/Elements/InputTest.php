@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 use Berry\Html\Enums\FormMethod;
 use Berry\Html\Enums\InputType;
@@ -32,7 +34,9 @@ test('input renders extended attributes', function () {
         ->autocomplete(true)
         ->toString();
 
-    expect($res)->toBe('<input type="number" min="1" max="10" step="2" pattern="[0-9]+" required readonly multiple maxlength="5" minlength="1" size="3" list="numbers" placeholder="enter" autocomplete="on" />');
+    expect($res)->toBe(
+        '<input type="number" min="1" max="10" step="2" pattern="[0-9]+" required readonly multiple maxlength="5" minlength="1" size="3" list="numbers" placeholder="enter" autocomplete="on" />',
+    );
 });
 
 test('input renders form attributes', function () {
@@ -46,5 +50,7 @@ test('input renders form attributes', function () {
         ->formtarget(Target::Blank)
         ->toString();
 
-    expect($res)->toBe('<input type="submit" form="f" formaction="/x" formenctype="multipart/form-data" formmethod="POST" formnovalidate formtarget="_blank" />');
+    expect($res)->toBe(
+        '<input type="submit" form="f" formaction="/x" formenctype="multipart/form-data" formmethod="POST" formnovalidate formtarget="_blank" />',
+    );
 });

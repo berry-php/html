@@ -1,8 +1,11 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 use Berry\Html\Enums\ReferrerPolicy;
 use Berry\Html\Enums\Rel;
 use Berry\Html\Enums\Target;
+
 use function Berry\Html\a;
 
 test('a renders basic', function () {
@@ -28,5 +31,7 @@ test('a with new attributes', function () {
         ->referrerpolicy(ReferrerPolicy::NoReferrer)
         ->toString();
 
-    expect($res)->toBe('<a rel="nofollow" target="_blank" hreflang="en" ping="https://tracking.com" type="text/html" referrerpolicy="no-referrer"></a>');
+    expect($res)->toBe(
+        '<a rel="nofollow" target="_blank" hreflang="en" ping="https://tracking.com" type="text/html" referrerpolicy="no-referrer"></a>',
+    );
 });

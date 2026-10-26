@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 use function Berry\Html\li;
 use function Berry\Html\ol;
@@ -16,10 +18,9 @@ test('ol renders extended attributes', function () {
 test('ol renders with comfort functions', function () {
     expect(
         ol()
-            ->li(function ($li) {
-                return $li->text('Item 1');
-            })
+            ->li(fn($li) => $li->text('Item 1'))
             ->li(span()->text('Item 2'))
-            ->toString()
-    )->toBe('<ol><li>Item 1</li><li><span>Item 2</span></li></ol>');
+            ->toString(),
+    )
+        ->toBe('<ol><li>Item 1</li><li><span>Item 2</span></li></ol>');
 });

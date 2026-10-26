@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Berry\Tests\Benchmark;
 
@@ -11,9 +13,10 @@ use function Berry\Html\td;
 use function Berry\Html\tr;
 
 /**
- * @BeforeMethods({"setUp"})
  * @ParamProviders({"provideTableSizes"})
  * @Revs(10)
+ * @Iterations(3)
+ * @Warmup(2)
  */
 class BigTableBench
 {
@@ -25,6 +28,7 @@ class BigTableBench
     public function provideTableSizes(): Generator
     {
         yield 'small' => ['rows' => 10, 'cols' => 10];
+        yield 'page' => ['rows' => 100, 'cols' => 8];
         yield 'medium' => ['rows' => 100, 'cols' => 100];
         yield 'large' => ['rows' => 1000, 'cols' => 1000];
     }
@@ -45,7 +49,7 @@ class BigTableBench
             $tr = tr();
 
             for ($col = 0; $col < $cols; $col++) {
-                $tr->child(td()->text("$row x $col"));
+                $tr->child(td()->text("{$row} x {$col}"));
             }
 
             $table->child($tr);
@@ -64,8 +68,11 @@ class BigTableBench
 
     /**
      * @param array{rows: int, cols: int} $params
+     * @BeforeMethods({"setUp"})
+     * @Revs(100)
+     * @Warmup(200)
      */
-    public function benchRendering(array $params): void
+    public function benchSerializePrebuiltTable(array $params): void
     {
         $this->table->toString();
     }
@@ -93,19 +100,14 @@ class BigTableBench
 
             for ($col = 0; $col < $params['cols']; $col++) {
                 // escape to stay fair
-                $content = Escaper::escape("$row x $col");
+                $content = Escaper::escape("{$row} x {$col}");
 
-                $out .= "<td>$content</td>";
+                $out .= "<td>{$content}</td>";
             }
 
             $out .= '</tr>';
         }
 
         $out .= '</table>';
-
-        // for fairness lets also print it out
-        ob_start();
-        echo $out;
-        ob_end_clean();
     }
 }

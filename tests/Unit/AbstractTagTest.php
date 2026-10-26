@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 use Berry\Html\Elements\A;
 
@@ -30,11 +32,7 @@ test('map conditionally', function () {
 
     $mkLink = fn(bool $active) => a()
         ->href('https://example.com')
-        ->mapWhen(
-            fn() => $active, 
-            fn(A $a): A => $a->class('active'),
-            fn(A $a): A => $a->class('inactive')
-        )
+        ->mapWhen(fn() => $active, fn(A $a): A => $a->class('active'), fn(A $a): A => $a->class('inactive'))
         ->text('Link')
         ->toString();
 

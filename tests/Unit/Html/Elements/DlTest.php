@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 use function Berry\Html\b;
 use function Berry\Html\dl;
@@ -31,11 +33,10 @@ test('dl with content', function () {
 test('dl renders with comfort functions', function () {
     expect(
         dl()
-            ->dt(function ($dt) {
-                return $dt->text('Term 1');
-            })
+            ->dt(fn($dt) => $dt->text('Term 1'))
             // ->dd('Def 1') // Skipped due to method name conflict
             ->dt(b()->text('Term 2'))
-            ->toString()
-    )->toBe('<dl><dt>Term 1</dt><dt><b>Term 2</b></dt></dl>');
+            ->toString(),
+    )
+        ->toBe('<dl><dt>Term 1</dt><dt><b>Term 2</b></dt></dl>');
 });

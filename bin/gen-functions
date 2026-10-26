@@ -1,5 +1,7 @@
 #!/usr/bin/env php
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -10,7 +12,7 @@ function generate(string $elementsDir, string $namespace, string $namespaceEleme
         return;
     }
 
-    $files = glob("$elementsDir/*.php");
+    $files = glob("{$elementsDir}/*.php");
     if ($files === false) {
         return;
     }
@@ -50,7 +52,7 @@ function generate(string $elementsDir, string $namespace, string $namespaceEleme
     foreach ($entries as [$funcName, $className, $docBlock]) {
         if ($docBlock !== null && $docBlock !== false) {
             $docBlockNorm = preg_replace("/\r\n?/", "\n", $docBlock);
-            $buffer[] = "$docBlockNorm\n";
+            $buffer[] = "{$docBlockNorm}\n";
         }
         $buffer[] = "function {$funcName}(): {$className}\n";
         $buffer[] = "{\n";
@@ -63,12 +65,12 @@ function generate(string $elementsDir, string $namespace, string $namespaceEleme
     if ($outputFile !== null) {
         $outputDir = dirname($outputFile);
         if (!is_dir($outputDir)) {
-            mkdir($outputDir, 0755, true);
+            mkdir($outputDir, 0o755, true);
         }
 
         file_put_contents($outputFile, $res);
         $num = count($entries);
-        echo "Wrote $num functions to $outputFile\n";
+        echo "Wrote {$num} functions to {$outputFile}\n";
         return;
     }
 
@@ -81,5 +83,3 @@ generate(
     'Berry\Html\Elements',
     __DIR__ . '/../src/Html/functions.php',
 );
-
-?>

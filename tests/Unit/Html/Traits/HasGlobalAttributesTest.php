@@ -1,8 +1,11 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 use Berry\Html\Enums\AutoCapitalize;
 use Berry\Html\Enums\Direction;
 use Berry\Html\Enums\InputMode;
+
 use function Berry\Html\div;
 
 test('Data attributes', function () {
@@ -21,7 +24,7 @@ test('it renders basic string attributes', function () {
     expect($res)->toBe('<div accesskey="s" lang="en" title="Hello World" autocapitalize="words"></div>');
 });
 
-test('it renders boolean flag attributes', function () {
+test('it distinguishes enumerated attributes from boolean flags', function () {
     $res = div()
         ->draggable()
         ->spellcheck()
@@ -30,7 +33,14 @@ test('it renders boolean flag attributes', function () {
         ->hidden()
         ->toString();
 
-    expect($res)->toBe('<div draggable spellcheck autofocus contenteditable hidden></div>');
+    expect($res)->toBe('<div draggable="true" spellcheck="true" autofocus contenteditable="true" hidden></div>');
+});
+
+test('enumerated attributes explicitly support false and plaintext editing', function () {
+    expect(div()->draggable(false)->spellcheck(false)->contenteditable(false)->toString())
+        ->toBe('<div draggable="false" spellcheck="false" contenteditable="false"></div>');
+    expect(div()->contenteditable('plaintext-only')->toString())
+        ->toBe('<div contenteditable="plaintext-only"></div>');
 });
 
 test('it renders tabindex correctly casting int to string', function () {
@@ -67,7 +77,9 @@ test('it renders new global attributes', function () {
         ->slot('header')
         ->toString();
 
-    expect($res)->toBe('<div dir="rtl" inputmode="numeric" enterkeyhint="next" is="custom-div" nonce="secret" part="thumb" slot="header"></div>');
+    expect($res)->toBe(
+        '<div dir="rtl" inputmode="numeric" enterkeyhint="next" is="custom-div" nonce="secret" part="thumb" slot="header"></div>',
+    );
 });
 
 test('it renders microdata attributes', function () {
@@ -79,5 +91,7 @@ test('it renders microdata attributes', function () {
         ->itemref('other-id')
         ->toString();
 
-    expect($res)->toBe('<div itemprop="name" itemscope itemtype="https://schema.org/Person" itemid="123" itemref="other-id"></div>');
+    expect($res)->toBe(
+        '<div itemprop="name" itemscope itemtype="https://schema.org/Person" itemid="123" itemref="other-id"></div>',
+    );
 });

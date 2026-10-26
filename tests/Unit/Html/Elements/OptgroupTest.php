@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 use function Berry\Html\optgroup;
 
@@ -20,6 +22,7 @@ test('optgroup renders with comfort functions', function () {
             ->label('Group')
             ->option('Option 1')
             ->option('Option 2')
-            ->toString()
-    )->toBe('<optgroup label="Group"><option>Option 1</option><option>Option 2</option></optgroup>');
+            ->toString(),
+    )
+        ->toBe('<optgroup label="Group"><option>Option 1</option><option>Option 2</option></optgroup>');
 });

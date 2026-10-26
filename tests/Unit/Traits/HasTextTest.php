@@ -1,21 +1,23 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 use function Berry\Html\b;
 use function Berry\Html\div;
 use function Berry\Html\main;
 
 test('rendering escaped text', function () {
-    expect(div()->text('<b>This should be escaped</b>')->toString())->toBe('<div>&lt;b&gt;This should be escaped&lt;/b&gt;</div>');
+    expect(div()->text('<b>This should be escaped</b>')->toString())
+        ->toBe('<div>&lt;b&gt;This should be escaped&lt;/b&gt;</div>');
 });
 
 test('rendering unescaped text', function () {
-    expect(div()->unsafeRaw('<b>This should not be escaped</b>')->toString())->toBe('<div><b>This should not be escaped</b></div>');
+    expect(div()->unsafeRaw('<b>This should not be escaped</b>')->toString())
+        ->toBe('<div><b>This should not be escaped</b></div>');
 });
 
 test('render text via function', function () {
-    expect(
-        div()->child(b()->text(fn() => 'Hello, World'))->toString()
-    )->toBe('<div><b>Hello, World</b></div>');
+    expect(div()->child(b()->text(fn() => 'Hello, World'))->toString())->toBe('<div><b>Hello, World</b></div>');
 });
 
 test('render multiple text nodes in succession', function () {
@@ -25,8 +27,9 @@ test('render multiple text nodes in succession', function () {
             ->text(null)
             ->text(' ')
             ->text('World')
-            ->toString()
-    )->toBe('<b>Hello World</b>');
+            ->toString(),
+    )
+        ->toBe('<b>Hello World</b>');
 });
 
 test('it prevents escaping bypasses in text nodes', function () {
@@ -37,13 +40,15 @@ test('it prevents escaping bypasses in text nodes', function () {
     expect($html)->not->toContain('</div>');
     expect($html)->not->toContain('<script>');
 
-    expect($html)->toBe('<main>&lt;/div&gt;&lt;script&gt;alert(1)&lt;/script&gt; &lt;b onmouseover=&quot;alert(1)&quot;&gt;</main>');
+    expect($html)->toBe(
+        '<main>&lt;/div&gt;&lt;script&gt;alert(1)&lt;/script&gt; &lt;b onmouseover=&quot;alert(1)&quot;&gt;</main>',
+    );
 });
 
 test('unsafeRaw does not accidentally sanitize', function () {
     $complexHtml = '<div class="foo" data-json=\'{"a":1}\'>Bar</div>';
     expect(div()->unsafeRaw($complexHtml)->toString())
-        ->toBe("<div>$complexHtml</div>");
+        ->toBe("<div>{$complexHtml}</div>");
 });
 
 test('it handles closures returning non-string values', function () {
@@ -66,7 +71,7 @@ test('it strips null bytes from text nodes', function () {
 });
 
 test('it handles large text nodes without crashing', function () {
-    $largeString = str_repeat('Safe Content ', 10000);
+    $largeString = str_repeat('Safe Content ', 10_000);
     $html = div()->text($largeString)->toString();
 
     expect($html)->toContain($largeString);

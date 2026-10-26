@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Berry\Html\Elements;
 
@@ -104,6 +106,10 @@ final class Video extends HtmlTag
      */
     public function crossorigin(Crossorigin|string $crossorigin): static
     {
-        return $this->attr('crossorigin', $crossorigin instanceof Crossorigin ? $crossorigin->value : $crossorigin, escapeKey: false);
+        return $this->attr(
+            'crossorigin',
+            $crossorigin instanceof Crossorigin ? $crossorigin->value : $crossorigin,
+            escapeKey: false,
+        );
     }
 }

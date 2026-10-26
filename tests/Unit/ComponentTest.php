@@ -1,15 +1,20 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 use Berry\Component;
 use Berry\Element;
 
 use function Berry\Html\button;
 
+// Test fixture intentionally lives beside the component test.
+// @mago-expect lint:file-name
 class CounterButton extends Component
 {
     public function __construct(
-        private int $value
-    ) {}
+        private int $value,
+    ) {
+    }
 
     public function renderComponent(): Element
     {
@@ -21,9 +26,6 @@ class CounterButton extends Component
 }
 
 test('test simple component', function () {
-    expect(
-        (new CounterButton(42))->toString()
-    )->toBe(
-        '<button class="btn btn-primary" hx-post="/counter/43">+42</button>'
-    );
+    expect((new CounterButton(42))->toString())
+        ->toBe('<button class="btn btn-primary" hx-post="/counter/43">+42</button>');
 });

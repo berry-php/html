@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 use function Berry\Html\datalist;
 
@@ -15,6 +17,7 @@ test('datalist renders with comfort functions', function () {
         datalist()
             ->option(null, 'Option 1')
             ->option('val2', 'Option 2')
-            ->toString()
-    )->toBe('<datalist><option>Option 1</option><option value="val2">Option 2</option></datalist>');
+            ->toString(),
+    )
+        ->toBe('<datalist><option>Option 1</option><option value="val2">Option 2</option></datalist>');
 });

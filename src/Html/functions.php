@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Berry\Html;
 
@@ -60,12 +62,14 @@ use Berry\Html\Elements\Ol;
 use Berry\Html\Elements\Optgroup;
 use Berry\Html\Elements\Option;
 use Berry\Html\Elements\P;
+use Berry\Html\Elements\Picture;
 use Berry\Html\Elements\Pre;
 use Berry\Html\Elements\Progress;
 use Berry\Html\Elements\Script;
 use Berry\Html\Elements\Section;
 use Berry\Html\Elements\Select;
 use Berry\Html\Elements\Small;
+use Berry\Html\Elements\Source;
 use Berry\Html\Elements\Span;
 use Berry\Html\Elements\Strong;
 use Berry\Html\Elements\Style;
@@ -77,11 +81,13 @@ use Berry\Html\Elements\TFoot;
 use Berry\Html\Elements\THead;
 use Berry\Html\Elements\Table;
 use Berry\Html\Elements\Td;
+use Berry\Html\Elements\Template;
 use Berry\Html\Elements\TextArea;
 use Berry\Html\Elements\Th;
 use Berry\Html\Elements\Time;
 use Berry\Html\Elements\Title;
 use Berry\Html\Elements\Tr;
+use Berry\Html\Elements\Track;
 use Berry\Html\Elements\U;
 use Berry\Html\Elements\Ul;
 use Berry\Html\Elements\Video;
@@ -595,6 +601,15 @@ function p(): P
 }
 
 /**
+ * Responsive image sources followed by a fallback img element.
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/picture
+ */
+function picture(): Picture
+{
+    return new Picture();
+}
+
+/**
  * The HTML <pre> element represents preformatted text which is to be presented exactly as written in the HTML file.
  * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/pre
  */
@@ -646,6 +661,15 @@ function select(): Select
 function small(): Small
 {
     return new Small();
+}
+
+/**
+ * A media source for picture, audio or video.
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/source
+ */
+function source(): Source
+{
+    return new Source();
 }
 
 /**
@@ -748,6 +772,15 @@ function td(): Td
 }
 
 /**
+ * Inert HTML content to instantiate with JavaScript or declarative shadow DOM.
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template
+ */
+function template(): Template
+{
+    return new Template();
+}
+
+/**
  * The HTML <textarea> element represents a multi-line plain-text editing control, useful when you want to allow users to enter a sizeable amount of free-form text, for example a comment on a review or feedback form.
  * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea
  */
@@ -793,6 +826,15 @@ function tr(): Tr
 }
 
 /**
+ * Timed text tracks for audio and video.
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track
+ */
+function track(): Track
+{
+    return new Track();
+}
+
+/**
  * The HTML <u> element represents text that should be stylistically different from normal text, typically rendered as underlined.
  * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/u
  */
@@ -818,4 +860,3 @@ function video(): Video
 {
     return new Video();
 }
-

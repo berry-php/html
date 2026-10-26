@@ -1,7 +1,11 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Berry\Html\Enums;
 
+// Keep the HTML specification's input types in one enum.
+// @mago-expect lint:too-many-enum-cases
 enum InputType: string
 {
     case Button = 'button';

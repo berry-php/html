@@ -1,10 +1,13 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Berry\Html\Traits;
 
 use Berry\Html\Enums\AutoCapitalize;
 use Berry\Html\Enums\Direction;
 use Berry\Html\Enums\InputMode;
+use Berry\Escaper;
 use Berry\Traits\HasAttributes;
 use Stringable;
 
@@ -62,11 +65,7 @@ trait HasGlobalAttributes
      */
     public function draggable(bool $value = true): static
     {
-        if (!$value) {
-            return $this;
-        }
-
-        return $this->flag('draggable');
+        return $this->attr('draggable', $value ? 'true' : 'false', escapeKey: false);
     }
 
     /**
@@ -75,11 +74,7 @@ trait HasGlobalAttributes
      */
     public function spellcheck(bool $value = true): static
     {
-        if (!$value) {
-            return $this;
-        }
-
-        return $this->flag('spellcheck');
+        return $this->attr('spellcheck', $value ? 'true' : 'false', escapeKey: false);
     }
 
     /**
@@ -102,10 +97,7 @@ trait HasGlobalAttributes
     public function contenteditable(bool|string $value = true): static
     {
         if (is_bool($value)) {
-            if (!$value) {
-                return $this;
-            }
-            return $this->flag('contenteditable');
+            return $this->attr('contenteditable', $value ? 'true' : 'false', escapeKey: false);
         }
 
         return $this->attr('contenteditable', $value, escapeKey: false);
@@ -139,7 +131,11 @@ trait HasGlobalAttributes
      */
     public function autocapitalize(AutoCapitalize|string $value): static
     {
-        return $this->attr('autocapitalize', $value instanceof AutoCapitalize ? $value->value : $value, escapeKey: false);
+        return $this->attr(
+            'autocapitalize',
+            $value instanceof AutoCapitalize ? $value->value : $value,
+            escapeKey: false,
+        );
     }
 
     /**
@@ -273,12 +269,12 @@ trait HasGlobalAttributes
         /** @var array<string, string|true> $attributes */
         $attributes = $this->attributes ?? [];
 
-        if (!empty($this->classes)) {
-            $attributes['class'] = $this->classString();
+        if ($this->classes) {
+            $attributes['class'] = Escaper::escape($this->classString());
         }
 
-        if (!empty($this->styles)) {
-            $attributes['style'] = $this->styleString();
+        if ($this->styles) {
+            $attributes['style'] = Escaper::escape($this->styleString());
         }
 
         return $attributes;

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Berry\Html\Traits;
 
@@ -37,6 +39,6 @@ trait HasStyleAttribute
     protected function styleString(): string
     {
         $styles = $this->styles ?? [];
-        return implode('; ', array_map(fn(string $key) => "$key: {$styles[$key]}", array_keys($styles)));
+        return implode('; ', array_map(static fn(string $key) => "{$key}: {$styles[$key]}", array_keys($styles)));
     }
 }

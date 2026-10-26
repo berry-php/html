@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 use function Berry\Html\fieldset;
 use function Berry\Html\legend;
@@ -12,7 +14,8 @@ test('fieldset with disabled', function () {
 });
 
 test('fieldset with attributes', function () {
-    expect(fieldset()->form('form1')->name('group1')->toString())->toBe('<fieldset form="form1" name="group1"></fieldset>');
+    expect(fieldset()->form('form1')->name('group1')->toString())
+        ->toBe('<fieldset form="form1" name="group1"></fieldset>');
 });
 
 test('legend renders basic', function () {
@@ -22,9 +25,8 @@ test('legend renders basic', function () {
 test('fieldset renders with comfort functions', function () {
     expect(
         fieldset()
-            ->legend(function ($legend) {
-                return $legend->text('Legend Text');
-            })
-            ->toString()
-    )->toBe('<fieldset><legend>Legend Text</legend></fieldset>');
+            ->legend(fn($legend) => $legend->text('Legend Text'))
+            ->toString(),
+    )
+        ->toBe('<fieldset><legend>Legend Text</legend></fieldset>');
 });

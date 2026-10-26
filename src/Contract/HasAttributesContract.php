@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Berry\Contract;
 
@@ -11,7 +13,12 @@ interface HasAttributesContract
      *
      * Example: $el->attr('class', 'btn-primary') renders as `class="btn-primary"`.
      */
-    public function attr(string $key, Stringable|string|int|float|bool $value, bool $escapeKey = true, bool $escapeValue = true): static;
+    public function attr(
+        string $key,
+        Stringable|string|int|float|bool $value,
+        bool $escapeKey = true,
+        bool $escapeValue = true,
+    ): static;
 
     /**
      * Sets a boolean "flag" attribute on the component.

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 use Berry\Html\Elements\Button;
 use Berry\Html\HtmlTag;
@@ -18,7 +20,8 @@ test('Extension Methods', function () {
     });
 
     // @phpstan-ignore-next-line
-    expect(button()->hxPost('https://example.com')->toString())->toBe('<button hx-post="https://example.com"></button>');
+    expect(button()->hxPost('https://example.com')->toString())
+        ->toBe('<button hx-post="https://example.com"></button>');
 
     Button::addMethod('greeter', function (Button $btn, mixed ...$args): Button {
         assert(count($args) === 1);
@@ -50,9 +53,7 @@ test('Extension Methods', function () {
 });
 
 test('Extension Method returning something else', function () {
-    AbstractTag::addMethod('strlen', function (AbstractTag $tag): int {
-        return strlen($tag->toString());
-    });
+    AbstractTag::addMethod('strlen', fn(AbstractTag $tag): int => strlen($tag->toString()));
 
     // @phpstan-ignore-next-line
     expect(div()->text('Hello, World!')->strlen())->toBe(strlen('<div>Hello, World!</div>'));
