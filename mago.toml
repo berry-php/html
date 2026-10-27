@@ -3,8 +3,8 @@ php-version = "8.3"
 threads = 8
 
 [source]
-paths = ["src"]
-excludes = ["vendor"]
+paths = ["src", "tests", "bin"]
+includes = ["vendor"]
 
 [formatter]
 preset = "psr-12"

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Berry\Html\Traits;
 
 use Berry\Html\Enums\AriaRole;
+use Berry\Traits\HasAttributes;
 
 /**
  * ARIA (Accessible Rich Internet Applications) attributes.
@@ -12,6 +13,8 @@ use Berry\Html\Enums\AriaRole;
  */
 trait HasAriaAttributes
 {
+    use HasAttributes;
+
     /**
      * Defines the hierarchical role of an element.
      */

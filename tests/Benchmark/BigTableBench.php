@@ -67,12 +67,12 @@ class BigTableBench
     }
 
     /**
-     * @param array{rows: int, cols: int} $params
+     * @param array{rows: int, cols: int} $_params
      * @BeforeMethods({"setUp"})
      * @Revs(100)
      * @Warmup(200)
      */
-    public function benchSerializePrebuiltTable(array $params): void
+    public function benchSerializePrebuiltTable(array $_params): void
     {
         $this->table->toString();
     }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Berry\Svg\Elements;
 
 use Berry\Svg\SvgTag;
+use Override;
 
 final class Svg extends SvgTag
 {
@@ -22,6 +23,7 @@ final class Svg extends SvgTag
         return $this;
     }
 
+    #[Override]
     public function toString(): string
     {
         $out = '';

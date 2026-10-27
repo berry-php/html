@@ -23,6 +23,7 @@ class Textfield extends Component
     ) {
     }
 
+    #[Override]
     public function renderComponent(): Element
     {
         return label()

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Berry\Html\Elements;
 
 use Berry\Html\HtmlTag;
+use Override;
 
 /**
  * The HTML <abbr> element represents an abbreviation or acronym.
@@ -21,8 +22,9 @@ final class Abbr extends HtmlTag
      * Provides an expansion or definition for the abbreviation.
      * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/abbr#title
      */
-    public function title(string $title): static
+    #[Override]
+    public function title(string $value): static
     {
-        return $this->attr('title', $title, escapeKey: false);
+        return $this->attr('title', $value, escapeKey: false);
     }
 }

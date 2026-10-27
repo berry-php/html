@@ -47,5 +47,5 @@ test('quoted CSS values are serialized as one escaped HTML attribute', function 
     $doc = new DOMDocument();
     expect($doc->loadXML($html))->toBeTrue();
     expect($doc->documentElement?->getAttribute('style'))->toBe('font-family: "Open Sans", sans-serif; content: "<&>"');
-    expect($doc->documentElement?->attributes->length)->toBe(1);
+    expect($doc->documentElement?->attributes?->length)->toBe(1);
 });

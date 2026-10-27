@@ -38,9 +38,9 @@ function generate(string $elementsDir, string $namespace, string $namespaceEleme
 
         try {
             // @phpstan-ignore-next-line
-            $rc = new \ReflectionClass($fqdn);
+            $rc = new ReflectionClass($fqdn);
             $docBlock = $rc->getDocComment();
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             $docBlock = null;
         }
 

@@ -10,6 +10,9 @@ use Stringable;
 /** XML-specific escaping; ordinary HTML attributes keep their existing fast path. */
 trait HasXmlAttributes
 {
+    /** @var array<string, string|true>|null */
+    protected ?array $attributes = null;
+
     public function attr(
         string $key,
         Stringable|string|int|float|bool $value,

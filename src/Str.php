@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Berry;
 
+use Override;
+
 final class Str implements Element
 {
     public function __construct(
@@ -11,11 +13,13 @@ final class Str implements Element
     ) {
     }
 
+    #[Override]
     public function toString(): string
     {
         return $this->content;
     }
 
+    #[Override]
     public function __toString(): string
     {
         return $this->toString();

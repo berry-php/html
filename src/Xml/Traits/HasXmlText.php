@@ -10,6 +10,8 @@ use Stringable;
 
 trait HasXmlText
 {
+    protected string $body = '';
+
     /** @param Stringable|string|int|float|bool|(Closure(): (Stringable|string|int|float|bool|null))|null $text */
     public function text(Stringable|string|int|float|bool|Closure|null $text): static
     {

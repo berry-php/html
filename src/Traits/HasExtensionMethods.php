@@ -51,6 +51,8 @@ trait HasExtensionMethods
         $parent = get_parent_class(static::class);
 
         if ($parent && method_exists($parent, 'findExtensionMethod')) {
+            // Dynamic parent lookup is validated immediately below.
+            // @mago-expect analysis:mixed-assignment
             $res = $parent::findExtensionMethod($name);
             assert(is_null($res) || $res instanceof Closure);
             return $res;

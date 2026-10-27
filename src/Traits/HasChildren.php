@@ -11,6 +11,7 @@ trait HasChildren
 {
     protected string $body = '';
 
+    /** @param Element|(Closure(): (Element|null))|null $child */
     public function child(Element|Closure|null $child): static
     {
         if ($child === null) {
@@ -29,6 +30,11 @@ trait HasChildren
         return $this;
     }
 
+    /**
+     * @param (Closure(): bool)|bool $condition
+     * @param Closure(): (Element|null) $child
+     * @param (Closure(): (Element|null))|null $else
+     */
     public function childWhen(Closure|bool $condition, Closure $child, ?Closure $else = null): static
     {
         if ($condition instanceof Closure) {
@@ -44,6 +50,10 @@ trait HasChildren
         return $this;
     }
 
+    /**
+     * @param iterable<Element|null>|(Closure(): iterable<Element|null>) $children
+     * @param Element|(Closure(): Element)|null $else
+     */
     public function children(iterable|Closure $children, Element|Closure|null $else = null): static
     {
         if ($children instanceof Closure) {

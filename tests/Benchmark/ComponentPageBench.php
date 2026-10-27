@@ -91,10 +91,10 @@ final class ComponentPageBench
         $this->page = $this->buildPage($params['cards']);
     }
 
-    /** @param array{cards: int} $params */
+    /** @param array{cards: int} $_params */
     #[Bench\BeforeMethods('setUpPage')]
     #[Bench\Revs(100)]
-    public function benchSerializePrebuiltPage(array $params): void
+    public function benchSerializePrebuiltPage(array $_params): void
     {
         $this->page->toString();
     }

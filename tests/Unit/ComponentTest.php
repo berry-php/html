@@ -16,6 +16,7 @@ class CounterButton extends Component
     ) {
     }
 
+    #[Override]
     public function renderComponent(): Element
     {
         return button()

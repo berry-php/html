@@ -50,6 +50,7 @@ test('JSON script data supports scalars null and JsonSerializable', function () 
     expect(script()->json(false)->toString())->toBe('<script type="application/json">false</script>');
     expect(script()->json(42)->toString())->toBe('<script type="application/json">42</script>');
     $data = new class implements JsonSerializable {
+        #[Override]
         public function jsonSerialize(): mixed
         {
             return ['answer' => 42];

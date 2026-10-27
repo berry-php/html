@@ -266,7 +266,6 @@ trait HasGlobalAttributes
      */
     public function getAttributes(): array
     {
-        /** @var array<string, string|true> $attributes */
         $attributes = $this->attributes ?? [];
 
         if ($this->classes) {

@@ -42,6 +42,7 @@ trait HasAttributes
         return $this;
     }
 
+    /** @return array<string, string|true> */
     public function getAttributes(): array
     {
         return $this->attributes ?? [];

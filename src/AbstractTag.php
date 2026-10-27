@@ -9,6 +9,7 @@ use Berry\Contract\HasExtensionMethodsContract;
 use Berry\Traits\HasAttributes;
 use Berry\Traits\HasExtensionMethods;
 use Closure;
+use Override;
 
 abstract class AbstractTag implements Element, HasAttributesContract, HasExtensionMethodsContract
 {
@@ -77,6 +78,7 @@ abstract class AbstractTag implements Element, HasAttributesContract, HasExtensi
         return $out;
     }
 
+    #[Override]
     public function __toString(): string
     {
         return $this->toString();

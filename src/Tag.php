@@ -6,11 +6,13 @@ namespace Berry;
 
 use Berry\Contract\HasChildrenContract;
 use Berry\Traits\HasChildren;
+use Override;
 
 class Tag extends AbstractTag implements HasChildrenContract
 {
     use HasChildren;
 
+    #[Override]
     public function toString(): string
     {
         if ($this->attributes === null) {

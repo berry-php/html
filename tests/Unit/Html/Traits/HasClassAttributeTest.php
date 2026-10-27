@@ -71,5 +71,5 @@ test('class values escape quotes and ampersands exactly once', function () {
     $doc = new DOMDocument();
     expect($doc->loadXML($html))->toBeTrue();
     expect($doc->documentElement?->getAttribute('class'))->toBe('a"b&c');
-    expect($doc->documentElement?->attributes->length)->toBe(1);
+    expect($doc->documentElement?->attributes?->length)->toBe(1);
 });

@@ -64,11 +64,11 @@ final class ChildrenBench
         $this->list = ul()->children($this->children($params['children']));
     }
 
-    /** @param array{children: int} $params */
+    /** @param array{children: int} $_params */
     #[Bench\BeforeMethods('setUpList')]
     #[Bench\Revs(100)]
     #[Bench\Warmup(200)]
-    public function benchSerializePrebuiltList(array $params): void
+    public function benchSerializePrebuiltList(array $_params): void
     {
         $this->list->toString();
     }
